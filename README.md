@@ -42,7 +42,7 @@ Being a Golang application, you can also build it yourself with `go` get or fetc
 Fetching from the master branch using `go`:
 
 ```sh
-$ go get -u -v github.com/jessp01/gohighlight
+$ go get -u -v github.com/jessp01/zaje
 ```
 
 ### Synopsis
