@@ -109,6 +109,7 @@ func colourOutput(matches []highlight.LineMatch, data []byte) {
 			}
 		}
 
+		color.Unset()
 		fmt.Print("\n")
 	}
 }
