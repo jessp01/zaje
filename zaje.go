@@ -32,8 +32,7 @@ func getDefs(filename string, data []byte) []highlight.LineMatch {
 
 	if syn_dir == "" {
 		if syn_dir == "" {
-			// TODO: we probably want to support ~/.config/zaje too
-			syn_dir = "/etc/zaje/highlight"
+			syn_dir = os.Getenv("HOME") + "/.config/zaje/syntax_files"
 		}
 	}
 
