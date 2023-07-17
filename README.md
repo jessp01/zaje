@@ -33,7 +33,7 @@ functions](./utils/functions.rc), I've created [install\_zaje.sh](./install_zaje
 This is a shell script and does not require Go to be installed. Simply download and invoke with no arguments:
 
 ```sh
-$ curl https://raw.githubusercontent.com/jessp01/zaje/master/install_zaje.sh
+$ curl https://raw.githubusercontent.com/jessp01/zaje/master/install_zaje.sh > install_zaje.sh
 $ ./install_zaje.sh
 ```
 
