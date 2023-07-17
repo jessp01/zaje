@@ -118,6 +118,7 @@ func main() {
 
     app := cli.NewApp()
     app.Name = "zaje"
+    app.Usage = "Syntax highlighter to cover all your shell needs"
     app.Version = "0.21"
     app.EnableBashCompletion = true
     cli.VersionFlag = cli.BoolFlag{
@@ -125,7 +126,7 @@ func main() {
 	Usage: "print only the version",
     }
     app.Compiled = time.Now()
-    app.Description = "Highlight text based on regular expressions/strings/characters matching"
+    app.Description = "Highlights text based on regular expressions/strings/characters matching.\n   Can operate on files or data sent to STDIN.\n"
     app.Authors = []cli.Author{
 	cli.Author{
 	    Name:  "Jesse Portnoy",
@@ -135,16 +136,18 @@ func main() {
     app.Copyright = "(c) packman.io"
     app.Flags = []cli.Flag {
 	cli.StringFlag{
-	    Name: "lexer, l",
-	    Usage: `config file to use when parsing input. When none is passed, zaje will attempt to autodetect based on the file name or first line of input. 
-You can set the path to lexer files by exporting the ZAJE_SYNDIR ENV var. If not exported, /etc/zaje/highlight will be used.`,
-	    Destination: &highlight_lexer,
-	},
-	cli.StringFlag{
 	    Name: "syn-dir, s",
-	    Usage: "Path to lexer files. The `ZAJE_SYNDIR` ENV var is also honoured. If neither is set, /etc/zaje/highlight will be used.",
+	    Usage: "Path to lexer files. The `ZAJE_SYNDIR` ENV var is also honoured.\n   If neither is set, /etc/zaje/highlight will be used.\n",
 	    EnvVar: "ZAJE_SYNDIR",
 	    Destination: &syn_dir,
+	},
+	cli.StringFlag{
+	    Name: "lexer, l",
+	    Usage: `config file to use when parsing input. 
+   When none is passed, zaje will attempt to autodetect based on the file name or first line of input. 
+   You can set the path to lexer files by exporting the ZAJE_SYNDIR ENV var. 
+   If not exported, /etc/zaje/highlight will be used.`,
+	    Destination: &highlight_lexer,
 	},
     }
 
