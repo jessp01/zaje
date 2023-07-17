@@ -1,0 +1,39 @@
+#!/bin/sh 
+
+
+# An example for how you can wrap common utils so that their output is filtered through zaje.
+
+# Usage:
+
+# - Adjust this so it points to the lexers dir
+export ZAJE_SYNDIR=/path/to/syntax_files
+
+# - Source this in your shell by running " . /path/to/functions.rc". 
+# You can of course add this to ~/.bashrc or any other file sourced by your shell.
+# Any Bourne comptable shell will work, BASH is not a requirement.
+
+# - Invoke `tail` and `diff` as you normally would. You should get highlighted output:) 
+
+tail()
+{
+    # uncomment this to apply it to only specific types of files
+    #FILE=$(echo "$@" | awk -F " " '{print $NF}')
+
+    #if echo $FILE | grep -q nginx || echo $FILE | grep -q apache;then
+    #	HIGHLIGHT_LEXER=webserverlog
+    #fi
+
+    echo "$(which tail) "$@" | zaje -l serverlog"
+    $(which tail) "$@" | zaje -l serverlog
+}
+
+diff()
+{
+    $(which diff) "$@" | zaje -l diff
+}
+
+lsb_release()
+{
+    $(which lsb_release) "$@" | zaje -l yaml
+}
+
