@@ -20,11 +20,10 @@ tail()
     #FILE=$(echo "$@" | awk -F " " '{print $NF}')
 
     #if echo $FILE | grep -q nginx || echo $FILE | grep -q apache;then
-    #	HIGHLIGHT_LEXER=webserverlog
     #fi
 
     echo "$(which tail) "$@" | zaje -l server-log"
-    $(which tail) "$@" | zaje -l serverlog
+    $(which tail) "$@" | zaje -l server-log
 }
 
 diff()
