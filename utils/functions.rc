@@ -30,4 +30,10 @@ lsb_release()
     $(which lsb_release) "$@" | zaje -l yaml
 }
 
+diff()
+{
+    $(which diff) "$@" | zaje -l diff 
+}
+
+
 alias cat=zaje
