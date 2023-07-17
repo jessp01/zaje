@@ -6,7 +6,7 @@
 # Usage:
 
 # - Adjust this so it points to the lexers dir
-export ZAJE_SYNDIR=/path/to/syntax_files
+export ZAJE_SYNDIR=/home/jesse/tmp/highlight-jesse/syntax_files
 
 # - Source this in your shell by running " . /path/to/functions.rc". 
 # You can of course add this to ~/.bashrc or any other file sourced by your shell.
@@ -23,7 +23,7 @@ tail()
     #	HIGHLIGHT_LEXER=webserverlog
     #fi
 
-    echo "$(which tail) "$@" | zaje -l serverlog"
+    echo "$(which tail) "$@" | zaje -l server-log"
     $(which tail) "$@" | zaje -l serverlog
 }
 
@@ -37,3 +37,4 @@ lsb_release()
     $(which lsb_release) "$@" | zaje -l yaml
 }
 
+alias cat=zaje
