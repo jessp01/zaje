@@ -8,18 +8,21 @@ import (
     "os"
     "log"
     "strings"
+    "errors"
     //"reflect"
 
     "github.com/fatih/color"
     "github.com/jessp01/highlight"
+    "github.com/urfave/cli"
 )
 
 var def *highlight.Def
 
 func getDefs(filename string, data []byte) []highlight.LineMatch {
 
-    syn_dir := os.Getenv("SYNDIR")
+    syn_dir := os.Getenv("ZAJE_SYNDIR")
     if syn_dir == "" {
+	// TODO: we probably want to support ~/.config/zaje too
 	syn_dir = "/etc/zaje/highlight"
     }
 
@@ -110,37 +113,57 @@ func handleData(filename string, data []byte){
 
 
 func main() {
-    fi, err := os.Stdin.Stat()
-    if err != nil {
-	panic(err)
+
+    app := cli.NewApp()
+    app.Flags = []cli.Flag {
+	cli.StringFlag{
+	    Name: "lexer",
+	    Value: "",
+	    Usage: `config file to use when parsing input. When none is passed, zaje will attempt to autodetect based on the file name or first line of input. 
+You can set the path to lexer files by exporting the ZAJE_SYNDIR ENV var. If not exported, /etc/zaje/highlight will be used.`,
+	},
     }
 
-    var filename string
-
-    if fi.Mode() & os.ModeNamedPipe == 0 {
-	if len(os.Args) <= 1 {
-		log.Fatal("No input file provided. We need a file or STDIN data.")
-		return
-	}
-	filename = os.Args[1]
-	data, _ := ioutil.ReadFile(os.Args[1])
-	handleData(filename, data)
-    } else {
-	scanner := bufio.NewScanner(os.Stdin)
-
-	for scanner.Scan() {
-	    data := scanner.Text()
-
-	    if data == "stop" {
-		break
-	    }
-
-	    handleData(filename, []byte(data))
-
-	}
-
-	if err := scanner.Err(); err != nil {
+    app.Action = func(c *cli.Context) error {
+	fi, err := os.Stdin.Stat()
+	if err != nil {
 	    panic(err)
 	}
+
+	var filename string
+
+	if fi.Mode() & os.ModeNamedPipe == 0 {
+	    if c.NArg() < 1 {
+		    //log.Fatal("No input file provided. We need a file or STDIN data.")
+		    return errors.New("No input file provided. We need a file or STDIN data.")
+	    }
+	    filename = c.Args().Get(0)
+	    data, _ := ioutil.ReadFile(filename)
+	    handleData(filename, data)
+	} else {
+	    scanner := bufio.NewScanner(os.Stdin)
+
+	    for scanner.Scan() {
+		data := scanner.Text()
+
+		if data == "stop" {
+		    break
+		}
+
+		handleData(filename, []byte(data))
+
+	    }
+
+	    if err := scanner.Err(); err != nil {
+		return err
+	    }
+	}
+	return nil
+    }
+
+
+    err := app.Run(os.Args)
+    if err != nil {
+	log.Fatal(err)
     }
 }
