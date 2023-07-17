@@ -1,4 +1,4 @@
-```man
+```groff
 NAME:
    zaje - Syntax highlighter to cover all your shell needs
 
