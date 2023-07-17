@@ -16,18 +16,18 @@ to very little effort.
 ### `zaje` Features
 
 - Supports over a 100 lexers for programming languages, configuration and log formats and UNIX commands (this is done using the
-  [highlight Go package](https://github.com/jessp01/highlight)
+  [highlight Go package](https://github.com/jessp01/gohighlight)
 - Can accept input as an argument as well as from an `STDIN` stream
 - Can detect the lexer to use based on:
     * The file name (when acting in `cat` mode)
     * The first line of text (so it will usually work nicely when piping as well)
 - Supports explicit specification of the lexer to use via a command-line arg and an `ENV` var
 - Easily to deploy: since it's a Go CLI app, it's one, statically linked executable with no dynamic deps
-- Easily extendable: see [Revising and adding new lexers](https://github.com/jessp01/highlight#revising-and-adding-new-lexers) for details
+- Easily extendable: see [Revising and adding new lexers](https://github.com/jessp01/gohighlight#revising-and-adding-new-lexers) for details
 
 ### Installation
 
-Because `zaje` depends on lexers from the `highlight` package and also provides some [helper shell
+Because `zaje` depends on lexers from the `gohighlight` package and also provides some [helper shell
 functions](./utils/functions.rc), I've created [install\_zaje.sh](./install_zaje.sh) to handle its deployment.
 
 This is a shell script and does not require Go to be installed. Simply download and invoke with no arguments:
@@ -42,7 +42,7 @@ Being a Golang application, you can also build it yourself with `go` get or fetc
 Fetching from the master branch using `go`:
 
 ```sh
-$ go get -u -v github.com/jessp01/highlight
+$ go get -u -v github.com/jessp01/gohighlight
 ```
 
 ### Synopsis

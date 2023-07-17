@@ -43,7 +43,7 @@ if [ ! "$(which curl 2>/dev/null)" ];then
 fi   
 
 NAME="zaje"
-HIGHLIGHT_REPO_NAME="highlight"
+HIGHLIGHT_REPO_NAME="gohighlight"
 GH_SPACE="jessp01"
 LATEST_VER=$(curl -s "https://api.github.com/repos/$GH_SPACE/$NAME/releases/latest"| grep tag_name|sed 's@\s*"tag_name": "\(.*\)".*@\1@')
 OS=$(uname)

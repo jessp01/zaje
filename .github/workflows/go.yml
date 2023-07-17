@@ -26,7 +26,7 @@ jobs:
     - name: Test
       run: |
         sudo apt update && sudo apt install wget
-        mkdir /tmp/syntax_files && wget https://github.com/jessp01/highlight/raw/master/syntax_files/c.yaml -P /tmp/syntax_files
+        mkdir /tmp/syntax_files && wget https://github.com/jessp01/gohighlight/raw/master/syntax_files/c.yaml -P /tmp/syntax_files
         echo -e "#include <stdio.h>\nint main(int argc, char *argv[])" | ./zaje -s /tmp/syntax_files
 
     #- name: Test
