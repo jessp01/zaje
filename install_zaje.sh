@@ -1,22 +1,5 @@
 #!/bin/sh -e
 
-NAME="zaje"
-HIGHLIGHT_REPO_NAME="highlight"
-GH_SPACE="jessp01"
-LATEST_VER=$(curl -s "https://api.github.com/repos/$GH_SPACE/$NAME/releases/latest"| grep tag_name|sed 's@\s*"tag_name": "\(.*\)".*@\1@')
-OS=$(uname)
-ARCH=$(uname -m)
-BIN_ARCHIVE="zaje_${OS}_${ARCH}.tar.gz"
-
-# we need this for the lexers
-LATEST_HIGHLIGHT_VER=$(curl -s "https://api.github.com/repos/$GH_SPACE/$HIGHLIGHT_REPO_NAME/releases/latest"| grep tag_name|sed 's@\s*"tag_name": "\(.*\)".*@\1@')
-HIGHLIGHT_SOURCE_ARCHIVE="${LATEST_HIGHLIGHT_VER}.tar.gz"
-
-CONFIG_DIR="$HOME/.config/$NAME"
-LEXERS_DIR="$CONFIG_DIR/syntax_files"
-TMP_DIR="/tmp/$NAME"
-FUNCTIONS_RC_FILE="$CONFIG_DIR/${NAME}_functions.rc"
-
 log_use_fancy_output () { 
     TPUT=/usr/bin/tput
     EXPR=/usr/bin/expr
@@ -53,6 +36,29 @@ if log_use_fancy_output; then
     BOLD=$($TPUT bold)
     UNSET=$( $TPUT op)
 fi
+
+if [ ! "$(which curl 2>/dev/null)" ];then
+	printf '%b' "${RED}Need to install curl.${NORMAL}\n"
+	exit 2
+fi   
+
+NAME="zaje"
+HIGHLIGHT_REPO_NAME="highlight"
+GH_SPACE="jessp01"
+LATEST_VER=$(curl -s "https://api.github.com/repos/$GH_SPACE/$NAME/releases/latest"| grep tag_name|sed 's@\s*"tag_name": "\(.*\)".*@\1@')
+OS=$(uname)
+ARCH=$(uname -m)
+BIN_ARCHIVE="zaje_${OS}_${ARCH}.tar.gz"
+
+# we need this for the lexers
+LATEST_HIGHLIGHT_VER=$(curl -s "https://api.github.com/repos/$GH_SPACE/$HIGHLIGHT_REPO_NAME/releases/latest"| grep tag_name|sed 's@\s*"tag_name": "\(.*\)".*@\1@')
+HIGHLIGHT_SOURCE_ARCHIVE="${LATEST_HIGHLIGHT_VER}.tar.gz"
+
+CONFIG_DIR="$HOME/.config/$NAME"
+LEXERS_DIR="$CONFIG_DIR/syntax_files"
+TMP_DIR="/tmp/$NAME"
+FUNCTIONS_RC_FILE="$CONFIG_DIR/${NAME}_functions.rc"
+
 
 printf '%b' "${BOLD}${NORMAL}\nWelcome to ${BLUE}$NAME ($LATEST_VER)${NORMAL}'s installation script:)\n"
 
@@ -91,3 +97,7 @@ printf '%b' "All sorted:)\n\n${BLUE}* $NAME${NORMAL} binary is in ~/bin/${NAME}\
 printf "* Useful helper functions are under ${BLUE}$FUNCTIONS_RC_FILE\n${NORMAL}  Source them with ${BLUE}'. $FUNCTIONS_RC_FILE'${NORMAL}.\n"
 printf "* Lexers are under ${BLUE}$LEXERS_DIR${NORMAL}\n\n"
 printf "Downloaded archives are available in ${BLUE}$TMP_DIR${NORMAL}.. Feel free to discard them.${UNSET}\n"
+
+if log_use_fancy_output ;then
+    $TPUT sgr0
+fi
