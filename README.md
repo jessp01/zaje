@@ -15,9 +15,9 @@ to very little effort.
 
 ### `zaje` Features
 
-- Supports over a 100 lexers for programming languages, config and log formats and UNIX commands (this is done using the
-  [highlight Go package](https://github.com/jessp01/highlight)(
-- Can accept input as an argument as well as from an STDIN stream
+- Supports over a 100 lexers for programming languages, configuration and log formats and UNIX commands (this is done using the
+  [highlight Go package](https://github.com/jessp01/highlight)
+- Can accept input as an argument as well as from an `STDIN` stream
 - Can detect the lexer to use based on:
     * The file name (when acting in `cat` mode)
     * The first line of text (so it will usually work nicely when piping as well)
@@ -27,7 +27,17 @@ to very little effort.
 
 ### Installation
 
-Being a Golang application, you can either build it yourself with go get or fetch a [specific version](https://github.com/jessp01/zaje/releases).
+Because `zaje` depends on lexers from the `highlight` package and also provides some [helper shell
+functions](./utils/functions.rc), I've created [install\_zaje.sh](./install_zaje.sh) to handle its deployment.
+
+This is a shell script and does not require Go to be installed. Simply download and invoke with no arguments:
+
+```sh
+$ curl https://raw.githubusercontent.com/jessp01/zaje/master/install_zaje.sh
+$ ./install_zaje.sh
+```
+
+Being a Golang application, you can also build it yourself with `go` get or fetch a [specific version](https://github.com/jessp01/zaje/releases).
 
 Fetching from the master branch using `go`:
 
@@ -35,16 +45,7 @@ Fetching from the master branch using `go`:
 $ go get -u -v github.com/jessp01/highlight
 ```
 
-Because `zaje` depends on lexers from the `highlight` package and also provides some [helper shell
-functions](./utils/functions.rc), I've also created [install_zaje.sh](./install_zaje.sh) to handle its deployment.
-Simply download and invoke with no arguments:
-
-```sh
-$ curl https://raw.githubusercontent.com/jessp01/zaje/master/install_zaje.sh
-$ ./install_zaje.sh
-```
-
-## Synopsis
+### Synopsis
 
 ```yml
 NAME:
