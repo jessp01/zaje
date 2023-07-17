@@ -9,6 +9,7 @@ import (
     "log"
     "strings"
     "errors"
+    "time"
     //"reflect"
 
     "github.com/fatih/color"
@@ -17,13 +18,16 @@ import (
 )
 
 var def *highlight.Def
+var syn_dir string
+var highlight_lexer string
 
 func getDefs(filename string, data []byte) []highlight.LineMatch {
 
-    syn_dir := os.Getenv("ZAJE_SYNDIR")
     if syn_dir == "" {
-	// TODO: we probably want to support ~/.config/zaje too
-	syn_dir = "/etc/zaje/highlight"
+	if syn_dir == "" {
+	    // TODO: we probably want to support ~/.config/zaje too
+	    syn_dir = "/etc/zaje/highlight"
+	}
     }
 
     var defs []*highlight.Def
@@ -37,8 +41,6 @@ func getDefs(filename string, data []byte) []highlight.LineMatch {
     if def == nil{
 	def = highlight.DetectFiletype(defs, filename, bytes.Split(data, []byte("\n"))[0])
     }
-
-    highlight_lexer := os.Getenv("HIGHLIGHT_LEXER");
 
     // if a specific lexer was requested by setting the ENV var, try to load it
     if highlight_lexer != "" {
@@ -115,12 +117,34 @@ func handleData(filename string, data []byte){
 func main() {
 
     app := cli.NewApp()
+    app.Name = "zaje"
+    app.Version = "0.21"
+    app.EnableBashCompletion = true
+    cli.VersionFlag = cli.BoolFlag{
+	Name: "print-version, V",
+	Usage: "print only the version",
+    }
+    app.Compiled = time.Now()
+    app.Description = "Highlight text based on regular expressions/strings/characters matching"
+    app.Authors = []cli.Author{
+	cli.Author{
+	    Name:  "Jesse Portnoy",
+	    Email: "jesse@packman.io",
+	},
+    }
+    app.Copyright = "(c) packman.io"
     app.Flags = []cli.Flag {
 	cli.StringFlag{
-	    Name: "lexer",
-	    Value: "",
+	    Name: "lexer, l",
 	    Usage: `config file to use when parsing input. When none is passed, zaje will attempt to autodetect based on the file name or first line of input. 
 You can set the path to lexer files by exporting the ZAJE_SYNDIR ENV var. If not exported, /etc/zaje/highlight will be used.`,
+	    Destination: &highlight_lexer,
+	},
+	cli.StringFlag{
+	    Name: "syn-dir, s",
+	    Usage: "Path to lexer files. The `ZAJE_SYNDIR` ENV var is also honoured. If neither is set, /etc/zaje/highlight will be used.",
+	    EnvVar: "ZAJE_SYNDIR",
+	    Destination: &syn_dir,
 	},
     }
 
@@ -134,8 +158,7 @@ You can set the path to lexer files by exporting the ZAJE_SYNDIR ENV var. If not
 
 	if fi.Mode() & os.ModeNamedPipe == 0 {
 	    if c.NArg() < 1 {
-		    //log.Fatal("No input file provided. We need a file or STDIN data.")
-		    return errors.New("No input file provided. We need a file or STDIN data.")
+		    return errors.New("No input file provided. `zaje` needs a file or data from STDIN.")
 	    }
 	    filename = c.Args().Get(0)
 	    data, _ := ioutil.ReadFile(filename)
@@ -145,13 +168,7 @@ You can set the path to lexer files by exporting the ZAJE_SYNDIR ENV var. If not
 
 	    for scanner.Scan() {
 		data := scanner.Text()
-
-		if data == "stop" {
-		    break
-		}
-
 		handleData(filename, []byte(data))
-
 	    }
 
 	    if err := scanner.Err(); err != nil {
