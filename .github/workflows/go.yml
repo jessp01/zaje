@@ -25,7 +25,7 @@ jobs:
       run: go build -v 
     - name: Test
       run: |
-        apt update && apt install curl
+        sudo apt update && sudo apt install curl
         mkdir /tmp/syntax_files && curl https://github.com/jessp01/highlight/raw/master/syntax_files/dpkg.yaml > /tmp/syntax_files
         dpkg -l | ./zaje -s /tmp/syntax_files 
 
