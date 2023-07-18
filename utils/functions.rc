@@ -35,5 +35,9 @@ diff()
     $(which diff) "$@" | zaje -l diff 
 }
 
+ping()
+{
+    $(which diff) "$@" | zaje -l ping 
+}
 
 alias cat=zaje
