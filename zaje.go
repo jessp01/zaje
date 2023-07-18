@@ -47,6 +47,7 @@ func getDefs(filename string, data []byte) []highlight.LineMatch {
 	if def == nil {
 		def = highlight.DetectFiletype(defs, filename, bytes.Split(data, []byte("\n"))[0])
 	}
+	//printDebugInfo()
 
 	// if a specific lexer was requested by setting the ENV var, try to load it
 	if highlight_lexer != "" {
@@ -74,27 +75,47 @@ func colourOutput(matches []highlight.LineMatch, data []byte) {
 			if group, ok := matches[lineN][colN]; ok {
 				switch group {
 				case highlight.Groups["statement"]:
+					fallthrough
+				case highlight.Groups["green"]:
 					color.Set(color.FgGreen)
-				// There are more possible groups available than just these ones
-				case highlight.Groups["statement"]:
-					color.Set(color.FgGreen)
+
 				case highlight.Groups["identifier"]:
-					color.Set(color.FgBlue)
+					fallthrough
+				case highlight.Groups["blue"]:
+					color.Set(color.FgHiBlue)
+
 				case highlight.Groups["preproc"]:
+					//fallthrough
+					//case highlight.Groups["high.red"]:
 					color.Set(color.FgHiRed)
+
 				case highlight.Groups["special"]:
+					fallthrough
+				case highlight.Groups["red"]:
 					color.Set(color.FgRed)
+
 				case highlight.Groups["constant.string"]:
-					color.Set(color.FgCyan)
+					fallthrough
 				case highlight.Groups["constant"]:
-					color.Set(color.FgCyan)
-				case highlight.Groups["constant.specialChar"]:
-					color.Set(color.FgHiMagenta)
-				case highlight.Groups["type"]:
-					color.Set(color.FgYellow)
+					fallthrough
 				case highlight.Groups["constant.number"]:
+					fallthrough
+				case highlight.Groups["cyan"]:
 					color.Set(color.FgCyan)
+
+				case highlight.Groups["constant.specialChar"]:
+					fallthrough
+				case highlight.Groups["magenta"]:
+					color.Set(color.FgHiMagenta)
+
+				case highlight.Groups["type"]:
+					fallthrough
+				case highlight.Groups["yellow"]:
+					color.Set(color.FgYellow)
+
 				case highlight.Groups["comment"]:
+					fallthrough
+				case highlight.Groups["high.green"]:
 					color.Set(color.FgHiGreen)
 				default:
 					color.Unset()
@@ -162,6 +183,7 @@ func main() {
 	}
 
 	app.Action = func(c *cli.Context) error {
+		log.SetFlags(log.LstdFlags | log.Lshortfile)
 		fi, err := os.Stdin.Stat()
 		if err != nil {
 			panic(err)
