@@ -37,7 +37,12 @@ diff()
 
 ping()
 {
-    $(which diff) "$@" | zaje -l ping 
+    $(which ping) "$@" | zaje -l ping 
+}
+
+df()
+{
+    $(which df) "$@" | zaje -l df 
 }
 
 alias cat=zaje
