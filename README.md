@@ -45,7 +45,9 @@ Fetching from the master branch using `go`:
 $ go get -u -v github.com/jessp01/zaje
 ```
 
-### Screencast (Not a video!)
+### ASCIInema screencast (Not a video!)
+
+You can copy all text (commands, outputs, etc) straight off the player:)
 
 [![asciicast](https://asciinema.org/a/ltEfcN9sILkUFHruwQLn6rDXm.svg)](https://asciinema.org/a/ltEfcN9sILkUFHruwQLn6rDXm)
 
