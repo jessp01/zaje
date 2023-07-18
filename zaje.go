@@ -147,7 +147,7 @@ func main() {
 	app.Flags = []cli.Flag{
 		cli.StringFlag{
 			Name:        "syn-dir, s",
-			Usage:       "Path to lexer files. The `ZAJE_SYNDIR` ENV var is also honoured.\n   If neither is set, /etc/zaje/highlight will be used.\n",
+			Usage:       "Path to lexer files. The `ZAJE_SYNDIR` ENV var is also honoured.\n   If neither is set, ~/.config/zaje/syntax_files will be used.\n",
 			EnvVar:      "ZAJE_SYNDIR",
 			Destination: &syn_dir,
 		},
