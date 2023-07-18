@@ -4,7 +4,7 @@
 [![GoDoc](https://godoc.org/github.com/jessp01/zaje?status.svg)](http://godoc.org/github.com/jessp01/zaje)
 [![AGPLv3](https://img.shields.io/badge/AGPLv3-blue.svg)](https://github.com/jessp01/zaje/blob/master/LICENSE)
 
-`zaje` is a syntax highlighter to cover all your shell needs. It can act as an ad-hoc replacement for both `cat` and `tail`.
+`zaje` is a syntax highlighter to cover all your shell colouring needs. With a spot of one-line shell functions, it can act as an ad-hoc replacement for both `cat` and `tail`.
 
 ## Motivation
 
