@@ -37,7 +37,7 @@ func getDefs(filename string, data []byte) []highlight.LineMatch {
 	}
 
 	var defs []*highlight.Def
-	lerr := highlight.ParseSyntaxFiles(syn_dir, &defs)
+	lerr, _ := highlight.ParseSyntaxFiles(syn_dir, &defs)
 	if lerr != nil {
 		log.Fatal(lerr)
 	}
