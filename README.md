@@ -4,7 +4,7 @@
 [![GoDoc](https://godoc.org/github.com/jessp01/zaje?status.svg)](http://godoc.org/github.com/jessp01/zaje)
 [![AGPLv3](https://img.shields.io/badge/AGPLv3-blue.svg)](https://github.com/jessp01/zaje/blob/master/LICENSE)
 
-`zaje` is a syntax highlighter that aims to cover all your shell colouring needs. With a spot of one-line shell functions, it can act as an ad-hoc replacement for both `cat` and `tail`.
+`zaje` is a syntax highlighter that aims to cover all your shell colouring needs. It can act as an ad-hoc replacement for `cat` and, with a spot of one-line shell functions `tail` and other friends.
 
 ## Motivation
 
@@ -44,6 +44,10 @@ Fetching from the master branch using `go`:
 ```sh
 $ go get -u -v github.com/jessp01/zaje
 ```
+
+### Screencast (Not a video!)
+
+[![asciicast](https://asciinema.org/a/ltEfcN9sILkUFHruwQLn6rDXm.svg)](https://asciinema.org/a/ltEfcN9sILkUFHruwQLn6rDXm)
 
 ### Synopsis
 
