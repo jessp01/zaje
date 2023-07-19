@@ -21,12 +21,14 @@ import (
 var def *highlight.Def
 var syn_dir string
 var highlight_lexer string
+var debug bool
 
 func printDebugInfo() {
 	fmt.Println("DEBUG INFO:")
+	fmt.Println("Syntax files dir: " + syn_dir)
+	fmt.Println("Lexer: " + highlight_lexer)
+	fmt.Println("DEFINITIONS:")
 	fmt.Println(def)
-	fmt.Println(syn_dir)
-	fmt.Println(highlight_lexer)
 }
 
 func getDefs(filename string, data []byte) []highlight.LineMatch {
@@ -38,17 +40,17 @@ func getDefs(filename string, data []byte) []highlight.LineMatch {
 	}
 
 	var defs []*highlight.Def
-	lerr, _ := highlight.ParseSyntaxFiles(syn_dir, &defs)
+	lerr, warnings := highlight.ParseSyntaxFiles(syn_dir, &defs)
 	if lerr != nil {
 		log.Fatal(lerr)
 	}
+
 	highlight.ResolveIncludes(defs)
 
-	// Always try to auto detect the best lexer:was
+	// Always try to auto detect the best lexer
 	if def == nil {
 		def = highlight.DetectFiletype(defs, filename, bytes.Split(data, []byte("\n"))[0])
 	}
-	//printDebugInfo()
 
 	// if a specific lexer was requested by setting the ENV var, try to load it
 	if highlight_lexer != "" {
@@ -56,6 +58,13 @@ func getDefs(filename string, data []byte) []highlight.LineMatch {
 		if lerr == nil {
 			// Parse it into a `*highlight.Def`
 			def, _ = highlight.ParseDef(syntaxFile)
+		}
+	}
+
+	if debug {
+		printDebugInfo()
+		if len(warnings) > 0 {
+			fmt.Println(warnings)
 		}
 	}
 
@@ -142,7 +151,6 @@ func handleData(filename string, data []byte) {
 		return
 	}
 	colourOutput(matches, data)
-	//printDebugInfo()
 }
 
 func main() {
@@ -205,6 +213,11 @@ COPYRIGHT:
    You can set the path to lexer files by exporting the ZAJE_SYNDIR ENV var. 
    If not exported, /etc/zaje/highlight will be used.`,
 			Destination: &highlight_lexer,
+		},
+		cli.BoolFlag{
+			Name:        "debug, d",
+			Usage:       "Run in debug mode.\n",
+			Destination: &debug,
 		},
 	}
 

@@ -54,6 +54,11 @@ if which zaje > /dev/null 2>&1 ;then
 	$(which df) "$@" | zaje -l df 
     }
 
+    du()
+    {
+	$(which du) "$@" | zaje -l du 
+    }
+
 else
     echo "Couldn't find zaje. Exiting without sourcing functions"
 fi
