@@ -25,6 +25,8 @@ jobs:
       run: go build -v 
     - name: Test
       run: |
+        FMT_ISSUES=$(gofmt -l .)
+        if test -n "$FMT_ISSUES" ;then printf "gofmt found problems:\n$FMT_ISSUES\n";exit 11; fi
         sudo apt update && sudo apt install wget
         mkdir /tmp/syntax_files && wget https://github.com/jessp01/gohighlight/raw/master/syntax_files/c.yaml -P /tmp/syntax_files
         echo -e "#include <stdio.h>\nint main(int argc, char *argv[])" | ./zaje -s /tmp/syntax_files
