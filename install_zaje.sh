@@ -99,6 +99,14 @@ printf "* Useful helper functions are under ${BLUE}$FUNCTIONS_RC_FILE\n${NORMAL}
 printf "* Lexers are under ${BLUE}$LEXERS_DIR${NORMAL}\n\n"
 printf "Downloaded archives are available in ${BLUE}$TMP_DIR${NORMAL}.. Feel free to discard them.${UNSET}\n"
 
+if [ "$(id -u)" = 0 ];then
+    cp ~/bin/${NAME} /usr/local/bin/${NAME}
+    # we don't want to override if exists
+    if [ ! -r /etc/profile.d/zaje.sh ];then
+	cp "$FUNCTIONS_RC_FILE" /etc/profile.d/zaje.sh
+    fi
+fi
+
 if log_use_fancy_output ;then
     $TPUT sgr0
 fi
