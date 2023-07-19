@@ -149,6 +149,32 @@ func handleData(filename string, data []byte) {
 func main() {
 
 	app := cli.NewApp()
+	cli.AppHelpTemplate = `NAME:
+   {{.Name}} - {{.Usage}}
+
+USAGE:
+   {{.HelpName}} {{if .VisibleFlags}}[global options]{{end}}{{if .Commands}} command [command options]{{end}} {{if .ArgsUsage}}{{.ArgsUsage}}{{else}}[input-file || - ]{{end}}
+   {{if len .Authors}}
+COMMANDS:
+{{range .Commands}}{{if not .HideHelp}}   {{join .Names ", "}}{{ "\t"}}{{.Usage}}{{ "\n" }}{{end}}{{end}}{{end}}{{if .VisibleFlags}}
+GLOBAL OPTIONS:
+   {{range .VisibleFlags}}{{.}}{{ "\n" }}
+   {{end}}{{end}}{{if .Copyright }}
+EXAMPLES:
+To use zaje as a cat replacement:
+$ zaje /path/to/file
+
+To replace tail -f:
+$ tail -f /path/to/file | zaje -l server-log -
+(- will make zaje read progressively from STDIN)
+
+AUTHOR:
+   {{range .Authors}}{{ . }}{{end}}
+   {{end}}{{if .Commands}}
+COPYRIGHT:
+   {{.Copyright}}
+   {{end}}
+`
 	app.Name = "zaje"
 	app.Usage = "Syntax highlighter to cover all your shell needs"
 	app.Version = "0.21.1-8"

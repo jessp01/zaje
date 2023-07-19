@@ -27,8 +27,6 @@ if which zaje > /dev/null 2>&1 ;then
 	#if echo $FILE | grep -q nginx || echo $FILE | grep -q apache;then
 	#fi
 
-	echo "$(which tail) "$@" | zaje -l server-log"
-
 	if [ $1 == "-f" ];then
 	    $(which tail) "$@" | zaje -l server-log -
 	else
