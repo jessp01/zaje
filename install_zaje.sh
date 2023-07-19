@@ -116,12 +116,20 @@ fi
 
 . $FUNCTIONS_RC_FILE
 
-printf "We've sourced ${BLUE}$FUNCTIONS_RC_FILE${NORMAL} in this script just to check that it is working...\nHere's some sample output:\n"
+cd -
+printf "\nWe've sourced ${BLUE}$FUNCTIONS_RC_FILE${NORMAL} in this script to check that it is working... sample output:\n\n"
 
+printf "${YELLOW}df -h:${NORMAL}\n"
 df -h /home /
-printf "#include <stdio.h>\nprintf(\"hello world\");\n" | zaje
+
+printf "${YELLOW}du -h $0:${NORMAL}\n"
 du -h "$0"
+
+printf "${YELLOW}ping localhost -c1:${NORMAL}\n"
 ping localhost -c1
+
+printf "\n${YELLOW}hello.c:${NORMAL}\n"
+printf "#include <stdio.h>\nprintf(\"hello world\");\n" | zaje
 
 if log_use_fancy_output ;then
     $TPUT sgr0
