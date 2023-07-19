@@ -114,6 +114,8 @@ if [ "$(id -u)" = 0 ];then
     fi
 fi
 
+. "$FUNCTIONS_RC_FILE"
+
 if log_use_fancy_output ;then
     $TPUT sgr0
 fi
