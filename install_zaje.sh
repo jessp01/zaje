@@ -114,7 +114,14 @@ if [ "$(id -u)" = 0 ];then
     fi
 fi
 
-. "$FUNCTIONS_RC_FILE"
+. $FUNCTIONS_RC_FILE
+
+printf "We've sourced ${BLUE}$FUNCTIONS_RC_FILE${NORMAL} in this script just to check that it is working...\nHere's some sample output:\n"
+
+df -h /home /
+printf "#include <stdio.h>\nprintf(\"hello world\");\n" | zaje
+du -h "$0"
+ping localhost -c1
 
 if log_use_fancy_output ;then
     $TPUT sgr0

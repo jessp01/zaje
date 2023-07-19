@@ -17,7 +17,7 @@ if which zaje > /dev/null 2>&1 ;then
 
     # - Invoke `tail` and `diff` as you normally would. You should get highlighted output:) 
 
-    alias cat=zaje
+    # alias cat=zaje
 
     tail()
     {
