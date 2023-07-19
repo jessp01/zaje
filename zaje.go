@@ -37,9 +37,9 @@ func getDefs(filename string, data []byte) []highlight.LineMatch {
 		if syn_dir == "" {
 			if stat, err := os.Stat(os.Getenv("HOME") + "/.config/zaje/syntax_files"); err == nil && stat.IsDir() {
 				syn_dir = os.Getenv("HOME") + "/.config/zaje/syntax_files"
-			}else{
+			} else {
 				if stat, err := os.Stat("/etc/zaje/syntax_files"); err == nil && stat.IsDir() {
-				    syn_dir = "/etc/zaje/syntax_files"
+					syn_dir = "/etc/zaje/syntax_files"
 				}
 			}
 		}
