@@ -101,11 +101,16 @@ printf "Downloaded archives are available in ${BLUE}$TMP_DIR${NORMAL}.. Feel fre
 
 if [ "$(id -u)" = 0 ];then
     cp ~/bin/${NAME} /usr/local/bin/${NAME}
-    printf "Copied ${BLUE}~/bin/${NAME}${NORMAL} to ${BLUE}/usr/local/bin/${NAME}${NORMAL}"
+    printf "Copied ${BLUE}~/bin/${NAME}${NORMAL} to ${BLUE}/usr/local/bin/${NAME}${NORMAL}\n"
     # we don't want to override if exists
     if [ ! -r /etc/profile.d/zaje.sh ];then
 	cp "$FUNCTIONS_RC_FILE" /etc/profile.d/zaje.sh
-	printf "Copied ${BLUE}$FUNCTIONS_RC_FILE${NORMAL} to ${BLUE}/etc/profile.d/${NAME}.sh${NORMAL}"
+	printf "Copied ${BLUE}$FUNCTIONS_RC_FILE${NORMAL} to ${BLUE}/etc/profile.d/${NAME}.sh${NORMAL}\n"
+    fi
+    if [ ! -d /etc/${NAME}/syntax_files ];then
+	mkdir -p /etc/${NAME}
+	cp -r "$LEXERS_DIR" "/etc/${NAME}"
+	printf "Copied ${BLUE}$LEXERS_DIR${NORMAL} to ${BLUE}/etc/${NAME}${NORMAL}\n"
     fi
 fi
 
