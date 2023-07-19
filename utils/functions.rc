@@ -28,7 +28,12 @@ if which zaje > /dev/null 2>&1 ;then
 	#fi
 
 	echo "$(which tail) "$@" | zaje -l server-log"
-	$(which tail) "$@" | zaje -l server-log
+
+	if [ $1 == "-f" ];then
+	    $(which tail) "$@" | zaje -l server-log -
+	else
+	    $(which tail) "$@" | zaje -l server-log
+	fi
     }
 
     diff()
@@ -43,7 +48,7 @@ if which zaje > /dev/null 2>&1 ;then
 
     ping()
     {
-	$(which ping) "$@" | zaje -l ping 
+	$(which ping) "$@" | zaje -l ping -
     }
 
     df()

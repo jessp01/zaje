@@ -5,6 +5,7 @@ import (
 	"bytes"
 	"errors"
 	"fmt"
+	"io"
 	"io/ioutil"
 	"log"
 	"os"
@@ -150,7 +151,7 @@ func main() {
 	app := cli.NewApp()
 	app.Name = "zaje"
 	app.Usage = "Syntax highlighter to cover all your shell needs"
-	app.Version = "0.21.1-4"
+	app.Version = "0.21.1-8"
 	app.EnableBashCompletion = true
 	cli.VersionFlag = cli.BoolFlag{
 		Name:  "print-version, V",
@@ -199,15 +200,25 @@ func main() {
 			data, _ := ioutil.ReadFile(filename)
 			handleData(filename, data)
 		} else {
-			scanner := bufio.NewScanner(os.Stdin)
+			// if progressive (i.e `tail -f` or ping)
+			if c.Args().Get(0) == "-" {
+			    scanner := bufio.NewScanner(os.Stdin)
 
-			for scanner.Scan() {
-				data := scanner.Text()
-				handleData(filename, []byte(data))
-			}
+			    for scanner.Scan() {
+				    data := scanner.Text()
+				    handleData(filename, []byte(data))
+			    }
 
-			if err := scanner.Err(); err != nil {
-				return err
+			    if err := scanner.Err(); err != nil {
+				    return err
+			    }
+			// read everything and process
+			}else{
+			    data, err := io.ReadAll(os.Stdin)
+			    if err != nil {
+				panic(err)
+			    }
+			    handleData(filename, []byte(data))
 			}
 		}
 		return nil
