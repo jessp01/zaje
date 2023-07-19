@@ -48,6 +48,7 @@ $ go install github.com/jessp01/zaje
 ### Adding and revising lexers
 
 See [Revising and adding new lexers](https://github.com/jessp01/gohighlight#revising-and-adding-new-lexers).
+
 If your new lexer doesn't seem to work, run `zaje` with `-d` or `--debug` to get more info.
 
 ### ASCIInema screencast (Not a video!)
