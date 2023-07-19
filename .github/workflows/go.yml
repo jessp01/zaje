@@ -27,7 +27,7 @@ jobs:
       run: |
         FMT_ISSUES=$(gofmt -l .)
         if test -n "$FMT_ISSUES" ;then printf "gofmt found problems:\n$FMT_ISSUES\n";exit 11; fi
-        sudo ./install_zaje.sh && ls -al /usr/local/bin/zaje && ls -al /etc/profile.d/zaje.sh && type df && df -h
+        sudo bash -xe ./install_zaje.sh && ls -al /usr/local/bin/zaje && ls -al /etc/profile.d/zaje.sh && type df && df -h
         du -h . | zaje -d -l du
 
     #- name: Test
