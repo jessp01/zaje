@@ -67,6 +67,7 @@ func getDefs(filename string, data []byte) []highlight.LineMatch {
 	return h.HighlightString(string(data))
 }
 
+
 func colourOutput(matches []highlight.LineMatch, data []byte) {
 	lines := strings.Split(string(data), "\n")
 	for lineN, l := range lines {
@@ -74,6 +75,10 @@ func colourOutput(matches []highlight.LineMatch, data []byte) {
 		for _, c := range l {
 			if group, ok := matches[lineN][colN]; ok {
 				switch group {
+				case highlight.Groups["default"]:
+					fallthrough
+				case highlight.Groups[""]:
+					color.Unset()
 				case highlight.Groups["statement"]:
 					fallthrough
 				case highlight.Groups["green"]:
@@ -123,11 +128,6 @@ func colourOutput(matches []highlight.LineMatch, data []byte) {
 			}
 			fmt.Print(string(c))
 			colN++
-		}
-		if group, ok := matches[lineN][colN]; ok {
-			if group == highlight.Groups["default"] || group == highlight.Groups[""] {
-				color.Unset()
-			}
 		}
 
 		color.Unset()

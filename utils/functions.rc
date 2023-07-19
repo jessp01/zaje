@@ -1,48 +1,57 @@
 #!/bin/sh 
 
+# protect against sourcing if zaje cannot be found.
 
-# An example for how you can wrap common utils so that their output is filtered through zaje.
+if which zaje > /dev/null 2>&1 ;then
 
-# Usage:
+    # An example for how you can wrap common utils so that their output is filtered through zaje.
 
-# - Adjust this so it points to the lexers dir (default is ~/.config/zaje/syntax_files
-#export ZAJE_SYNDIR=/path/to/syntax_files
+    # Usage:
 
-# - Source this in your shell by running " . /path/to/functions.rc". 
-# You can of course add this to ~/.bashrc or any other file sourced by your shell.
-# Any Bourne comptable shell will work, BASH is not a requirement.
+    # - Adjust this so it points to the lexers dir
+    export ZAJE_SYNDIR=/home/jesse/tmp/highlight-jesse/syntax_files
 
-# - Invoke `tail` and `diff` as you normally would. You should get highlighted output:) 
+    # - Source this in your shell by running " . /path/to/functions.rc". 
+    # You can of course add this to ~/.bashrc or any other file sourced by your shell.
+    # Any Bourne comptable shell will work, BASH is not a requirement.
 
-tail()
-{
-    # uncomment this to apply it to only specific types of files
-    #FILE=$(echo "$@" | awk -F " " '{print $NF}')
+    # - Invoke `tail` and `diff` as you normally would. You should get highlighted output:) 
 
-    #if echo $FILE | grep -q nginx || echo $FILE | grep -q apache;then
-    #fi
+    alias cat=zaje
 
-    $(which tail) "$@" | zaje -l server-log
-}
+    tail()
+    {
+	# uncomment this to apply it to only specific types of files
+	#FILE=$(echo "$@" | awk -F " " '{print $NF}')
 
-lsb_release()
-{
-    $(which lsb_release) "$@" | zaje -l yaml
-}
+	#if echo $FILE | grep -q nginx || echo $FILE | grep -q apache;then
+	#fi
 
-diff()
-{
-    $(which diff) "$@" | zaje -l diff 
-}
+	echo "$(which tail) "$@" | zaje -l server-log"
+	$(which tail) "$@" | zaje -l server-log
+    }
 
-ping()
-{
-    $(which ping) "$@" | zaje -l ping 
-}
+    diff()
+    {
+	$(which diff) "$@" | zaje -l diff
+    }
 
-df()
-{
-    $(which df) "$@" | zaje -l df 
-}
+    lsb_release()
+    {
+	$(which lsb_release) "$@" | zaje -l yaml
+    }
 
-alias cat=zaje
+    ping()
+    {
+	$(which ping) "$@" | zaje -l ping 
+    }
+
+    df()
+    {
+	$(which df) "$@" | zaje -l df 
+    }
+
+else
+    echo "Couldn't find zaje. Exiting without sourcing functions"
+fi
+

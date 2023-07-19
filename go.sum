@@ -6,8 +6,6 @@ github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/fatih/color v1.15.0 h1:kOqh6YHBtK8aywxGerMG2Eq3H6Qgoqeo13Bk2Mv/nBs=
 github.com/fatih/color v1.15.0/go.mod h1:0h5ZqXfHYED7Bhv2ZJamyIOUej9KtShiJESRwBDUSsw=
-github.com/jessp01/gohighlight v0.21.1-4 h1:zJyWJs9jBMcCq+r8v7Bv+EzRA3Nt536e1I7Y28euoFA=
-github.com/jessp01/gohighlight v0.21.1-4/go.mod h1:Kuw7r92c5mrTHvu1YxbWZf0ChvIneGBwrkzO7h3/oXE=
 github.com/jessp01/gohighlight v0.21.1-5 h1:TopyJne6A3QmhhyFPQZTXJIFnIVPHqb2fYXR/i6CQ7U=
 github.com/jessp01/gohighlight v0.21.1-5/go.mod h1:52r0Yxd1+T9f7uLenaO2/34K3gPOejxCxXwdNc/2Z8Y=
 github.com/mattn/go-colorable v0.1.13 h1:fFA4WZxdEF4tXPZVKMLwD8oUnCTTo08duU7wxecdEvA=
