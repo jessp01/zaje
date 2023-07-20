@@ -41,7 +41,6 @@ If you run `install_zaje.sh` as a super user, you only need to start a new shell
 Otherwise, you'll need to source the functions file (see the script's output for instructions).
 
 Being a Golang application, you can also build it yourself with `go` get or fetch a [specific version](https://github.com/jessp01/zaje/releases).
-
 Fetching from the master branch using `go`:
 
 ```sh
@@ -49,6 +48,12 @@ $ go install github.com/jessp01/zaje
 ```
 
 If you take this route, you'll need to copy the `highlight/syntax_files` and `utils/functions.rc` manually.
+
+### ASCIInema screencast (Not a video!)
+
+You can copy all text (commands, outputs, etc) straight off the player:)
+
+[![asciicast](https://asciinema.org/a/ltEfcN9sILkUFHruwQLn6rDXm.svg)](https://asciinema.org/a/ltEfcN9sILkUFHruwQLn6rDXm)
 
 ### Adding and revising lexers
 
@@ -71,12 +76,6 @@ Specifying the colour names in the YML is also supported, see [df.yaml](https://
 
 If your new lexer doesn't seem to work, run `zaje` with `-d` or `--debug` to get more info.
 
-### ASCIInema screencast (Not a video!)
-
-You can copy all text (commands, outputs, etc) straight off the player:)
-
-[![asciicast](https://asciinema.org/a/ltEfcN9sILkUFHruwQLn6rDXm.svg)](https://asciinema.org/a/ltEfcN9sILkUFHruwQLn6rDXm)
-
 ### Synopsis
 
 ```yml
@@ -84,32 +83,39 @@ NAME:
    zaje - Syntax highlighter to cover all your shell needs
 
 USAGE:
-   zaje [global options] command [command options] [arguments...]
-
-VERSION:
-   0.21
-
-DESCRIPTION:
-   Highlights text based on regular expressions/strings/characters matching.
-   Can operate on files or data sent to STDIN.
-
-
-AUTHOR:
-   Jesse Portnoy <jesse@packman.io>
-
+   zaje [global options] command [command options] [input-file || - ]
+   
 COMMANDS:
    help, h  Shows a list of commands or help for one command
 
 GLOBAL OPTIONS:
    --syn-dir ZAJE_SYNDIR, -s ZAJE_SYNDIR  Path to lexer files. The ZAJE_SYNDIR ENV var is also honoured.
-   If neither is set, /etc/zaje/highlight will be used. [$ZAJE_SYNDIR]
+   If neither is set, ~/.config/zaje/syntax_files will be used. [$ZAJE_SYNDIR]
+
    --lexer value, -l value  config file to use when parsing input. 
    When none is passed, zaje will attempt to autodetect based on the file name or first line of input. 
    You can set the path to lexer files by exporting the ZAJE_SYNDIR ENV var. 
    If not exported, /etc/zaje/highlight will be used.
-   --help, -h           show help
+
+   --debug, -d  Run in debug mode.
+
+   --help, -h  show help
+
    --print-version, -V  print only the version
 
+   
+EXAMPLES:
+To use zaje as a cat replacement:
+$ zaje /path/to/file
+
+To replace tail -f:
+$ tail -f /path/to/file | zaje -l server-log -
+(- will make zaje read progressively from STDIN)
+
+AUTHOR:
+   Jesse Portnoy <jesse@packman.io>
+   
 COPYRIGHT:
    (c) packman.io
+
 ```
