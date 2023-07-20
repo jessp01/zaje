@@ -49,6 +49,21 @@ $ go install github.com/jessp01/zaje
 
 See [Revising and adding new lexers](https://github.com/jessp01/gohighlight#revising-and-adding-new-lexers).
 
+#### Supported specifiers
+
+```yml
+statement: will colour the char group green
+identifier: will colour the char group blue
+special: will colour the char group red
+constant.string | constant | constant.number: will colour the char group cyan
+constant.specialChar: will colour the char group magenta
+type: will colour the char group yellow
+comment: high.green will colour the char group bright green
+preproc: will colour the char group bright red
+
+```
+Specifying the colour names in the YML is also supported, see [df.yaml](./highlight/df.yaml) for an exmaple.
+
 If your new lexer doesn't seem to work, run `zaje` with `-d` or `--debug` to get more info.
 
 ### ASCIInema screencast (Not a video!)
