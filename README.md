@@ -37,6 +37,9 @@ $ curl https://raw.githubusercontent.com/jessp01/zaje/master/install_zaje.sh > i
 $ ./install_zaje.sh
 ```
 
+If you run `install_zaje.sh` as a super user, you only need to start a new shell to get all the functionality.
+Otherwise, you'll need to source the functions file (see the script's output for instructions).
+
 Being a Golang application, you can also build it yourself with `go` get or fetch a [specific version](https://github.com/jessp01/zaje/releases).
 
 Fetching from the master branch using `go`:
@@ -44,6 +47,8 @@ Fetching from the master branch using `go`:
 ```sh
 $ go install github.com/jessp01/zaje
 ```
+
+If you take this route, you'll need to copy the `highlight/syntax_files` and `utils/functions.rc` manually.
 
 ### Adding and revising lexers
 
