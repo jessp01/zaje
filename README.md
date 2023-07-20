@@ -53,6 +53,8 @@ If you take this route, you'll need to copy the `highlight/syntax_files` and `ut
 
 You can copy all text (commands, outputs, etc) straight off the player:)
 
+[![asciicast](https://asciinema.org/a/597732.svg)](https://asciinema.org/a/597732)
+
 [![asciicast](https://asciinema.org/a/ltEfcN9sILkUFHruwQLn6rDXm.svg)](https://asciinema.org/a/ltEfcN9sILkUFHruwQLn6rDXm)
 
 ### Adding and revising lexers
