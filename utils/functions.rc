@@ -21,6 +21,8 @@ if which zaje > /dev/null 2>&1 ;then
 
     tail()
     {
+	BIN="tail"
+	LEXER="server-log"
 	# uncomment this to apply it to only specific types of files
 	#FILE=$(echo "$@" | awk -F " " '{print $NF}')
 
@@ -28,9 +30,9 @@ if which zaje > /dev/null 2>&1 ;then
 	#fi
 
 	if [ $1 == "-f" ];then
-	    $(which tail) "$@" | zaje -l server-log -
+	    $(which $BIN) "$@" | zaje -l "$LEXER" -
 	else
-	    $(which tail) "$@" | zaje -l server-log
+	    $(which $BIN) "$@" | zaje -l "$LEXER"
 	fi
     }
 
@@ -41,7 +43,10 @@ if which zaje > /dev/null 2>&1 ;then
 
     lsb_release()
     {
-	$(which lsb_release) "$@" | zaje -l yaml
+	BIN="lsb_release"
+	if $(which $BIN) > /dev/null 2>&1 ;then
+	    $(which $BIN) "$@" | zaje -l yaml
+	fi
     }
 
     ping()
@@ -57,6 +62,26 @@ if which zaje > /dev/null 2>&1 ;then
     du()
     {
 	$(which du) "$@" | zaje -l du 
+    }
+
+    xmllint()
+    {
+	BIN=xmllint
+	if which $BIN > /dev/null ;then
+	    $(which $BIN) "$@" | zaje -l xml
+	else
+	    echo "$BIN does not exist"
+	fi
+    }
+
+    jsonlint()
+    {
+	BIN=jsonlint
+	if which $BIN > /dev/null ;then
+	    $(which $BIN) "$@" | zaje -l json
+	else
+	    echo "$BIN does not exist"
+	fi
     }
 
 else
