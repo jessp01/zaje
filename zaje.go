@@ -111,30 +111,38 @@ func colourOutput(matches []highlight.LineMatch, data []byte) {
 
 				case highlight.Groups["special"]:
 					fallthrough
+				case highlight.Groups["type.keyword"]:
+					fallthrough
 				case highlight.Groups["red"]:
 					color.Set(color.FgRed)
 
-				case highlight.Groups["constant.string"]:
-					fallthrough
 				case highlight.Groups["constant"]:
 					fallthrough
 				case highlight.Groups["constant.number"]:
 					fallthrough
-				case highlight.Groups["symbol.operator"]:
+				case highlight.Groups["constant.bool"]:
 					fallthrough
 				case highlight.Groups["symbol.brackets"]:
+					fallthrough
+				case highlight.Groups["identifier.var"]:
 					fallthrough
 				case highlight.Groups["cyan"]:
 					color.Set(color.FgCyan)
 
 				case highlight.Groups["constant.specialChar"]:
 					fallthrough
-				case highlight.Groups["identifier.var"]:
+				case highlight.Groups["constant.string.url"]:
+					fallthrough
+				case highlight.Groups["constant.string"]:
 					fallthrough
 				case highlight.Groups["magenta"]:
 					color.Set(color.FgHiMagenta)
 
 				case highlight.Groups["type"]:
+					fallthrough
+				case highlight.Groups["symbol.operator"]:
+					fallthrough
+				case highlight.Groups["symbol.tag.extended"]:
 					fallthrough
 				case highlight.Groups["yellow"]:
 					color.Set(color.FgYellow)
