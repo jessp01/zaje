@@ -38,7 +38,8 @@ if which zaje > /dev/null 2>&1 ;then
 
     diff()
     {
-	$(which diff) "$@" | zaje -l diff
+	BIN="diff"
+	$(which $BIN) "$@" | zaje -l $BIN
     }
 
     lsb_release()
@@ -51,17 +52,26 @@ if which zaje > /dev/null 2>&1 ;then
 
     ping()
     {
-	$(which ping) "$@" | zaje -l ping -
+	BIN="ping"
+	$(which $BIN) "$@" | zaje -l $BIN -
+    }
+
+    traceroute()
+    {
+	BIN="traceroute"
+	$(which $BIN) "$@" | zaje -l $BIN -
     }
 
     df()
     {
-	$(which df) "$@" | zaje -l df 
+	BIN="df"
+	$(which $BIN) "$@" | zaje -l $BIN 
     }
 
     du()
     {
-	$(which du) "$@" | zaje -l du 
+	BIN="du"
+	$(which $BIN) "$@" | zaje -l $BIN 
     }
 
     xmllint()
