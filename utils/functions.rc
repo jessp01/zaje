@@ -59,7 +59,7 @@ if which zaje > /dev/null 2>&1 ;then
     traceroute()
     {
 	BIN="traceroute"
-	$(which $BIN) "$@" | zaje -l $BIN
+	$(which $BIN) "$@" | zaje -l $BIN -
     }
 
     nmap()
