@@ -65,7 +65,7 @@ if which zaje > /dev/null 2>&1 ;then
     nmap()
     {
 	BIN="nmap"
-	$(which $BIN) "$@" | zaje -l $BIN
+	$(which $BIN) "$@" | zaje -l $BIN -
     }
 
     netstat()
