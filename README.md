@@ -80,7 +80,7 @@ If your new lexer doesn't seem to work, run `zaje` with `-d` or `--debug` to get
 
 ### Synopsis
 
-```sh
+```yml
 NAME:
    zaje - Syntax highlighter to cover all your shell needs
 
