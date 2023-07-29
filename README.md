@@ -49,6 +49,42 @@ $ go install github.com/jessp01/zaje
 
 If you take this route, you'll need to copy the `highlight/syntax_files` and `utils/functions.rc` manually.
 
+### Installing `super-zaje`
+
+`super-zaje` does everything `zaje` does but provides the additional functionality of extracting text from an image. 
+It's a separate binary because it depends on the [gosseract](https://github.com/otiai10/gosseract) which in turn
+depends on `libtesseract` and requires its SOs to be available on the machine.
+
+#### Installing on Debian/Ubuntu
+```sh
+# install deps:
+$ sudo apt-get install -y libtesseract-dev libleptonica-dev tesseract-ocr-eng golang-go
+```
+
+Most popular Linux distros include the `libtesseract` package but it may be named differently. If the official repos of
+your distro of choice do not have it, you can always compile it from source.
+
+#### Installing on Darwin (what people mistakingly refer to as MacOS)
+```sh
+$ brew install tesseract
+```
+
+Aftering installing `tesseract`, simply invoke the below to install `super-zaje`:
+
+```sh
+# install super-zaje
+$ go install github.com/jessp01/zaje/super-zaje@v0.21.2-2
+```
+
+You can then use it thusly:
+```sh
+$ ~/go/bin/super-zaje -l sh </path/to/img/of/http/url>
+```
+
+For example, try:
+```sh
+```
+
 ### ASCIInema screencast (Not a video!)
 
 You can copy all text (commands, outputs, etc) straight off the player:)
