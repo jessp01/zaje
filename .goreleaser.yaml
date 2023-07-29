@@ -13,9 +13,9 @@ builds:
       - linux
       - darwin
   - id: zaje
-    main: main.go
+      main: main.go
   - id: superzaje
-    main: ./super-zaje/super-zaje.go
+      main: ./super-zaje/super-zaje.go
 
 archives:
   - format: tar.gz
