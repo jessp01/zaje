@@ -55,6 +55,8 @@ If you take this route, you'll need to copy the `highlight/syntax_files` and `ut
 It's a separate binary because it depends on the [gosseract](https://github.com/otiai10/gosseract) which in turn
 depends on `libtesseract` and requires its SOs to be available on the machine.
 
+First, install `zaje` using `install_zaje.sh`, and then...
+
 #### Installing on Debian/Ubuntu
 ```sh
 # install deps:
@@ -83,6 +85,7 @@ $ ~/go/bin/super-zaje -l sh </path/to/img/of/http/url>
 
 For example, try:
 ```sh
+$ ~/go/bin/super-zaje "https://github.com/jessp01/zaje/blob/master/testimg/go1.png?raw=true"
 ```
 
 ### ASCIInema screencast (Not a video!)
