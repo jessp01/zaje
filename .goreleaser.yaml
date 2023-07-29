@@ -12,6 +12,10 @@ builds:
     goos:
       - linux
       - darwin
+  - id: zaje
+    main: main.go
+  - id: super-zaje
+    main: ./super-zaje/super-zaje.go
 
 archives:
   - format: tar.gz
