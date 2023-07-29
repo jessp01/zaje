@@ -96,7 +96,7 @@ func colourOutput(matches []highlight.LineMatch, data []byte) {
 		colN := 0
 		if addLineNumbers {
 			color.Set(color.FgYellow)
-			fmt.Print(fmt.Sprintf("%d", lineN + 1) + " ")
+			fmt.Print(fmt.Sprintf("%d", lineN+1) + " ")
 			color.Unset()
 		}
 		for _, c := range l {
