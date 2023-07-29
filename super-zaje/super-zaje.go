@@ -27,6 +27,8 @@ var def *highlight.Def
 var syn_dir string
 var highlight_lexer string
 var debug bool
+var removeLineNumbers bool
+var addLineNumbers bool
 
 func printDebugInfo() {
 	fmt.Println("DEBUG INFO:")
@@ -92,6 +94,11 @@ func colourOutput(matches []highlight.LineMatch, data []byte) {
 	lines := strings.Split(string(data), "\n")
 	for lineN, l := range lines {
 		colN := 0
+		if addLineNumbers {
+			color.Set(color.FgYellow)
+			fmt.Print(fmt.Sprintf("%d", lineN + 1) + " ")
+			color.Unset()
+		}
 		for _, c := range l {
 			if group, ok := matches[lineN][colN]; ok {
 				switch group {
@@ -272,6 +279,16 @@ COPYRIGHT:
 			Usage:       "Run in debug mode.\n",
 			Destination: &debug,
 		},
+		cli.BoolFlag{
+			Name:        "add-line-numbers, ln",
+			Usage:       "Add line numbers.\n",
+			Destination: &addLineNumbers,
+		},
+		cli.BoolFlag{
+			Name:        "remove-line-numbers, rln",
+			Usage:       "Remove line numbers.\n",
+			Destination: &removeLineNumbers,
+		},
 	}
 
 	app.Action = func(c *cli.Context) error {
@@ -318,6 +335,10 @@ COPYRIGHT:
 					panic(err)
 				}
 				text = anyascii.Transliterate(text)
+				if removeLineNumbers {
+					reLineNumber := regexp.MustCompile(`(?m)^\s*\d+\s(.*)`)
+					text = reLineNumber.ReplaceAllString(text, `$1`)
+				}
 				data = []byte(text)
 			}
 
