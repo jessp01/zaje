@@ -25,7 +25,6 @@ builds:
       - darwin
     goarch:
       - amd64
-      - arm64
 
     main: ./super-zaje
     id: super-zaje
