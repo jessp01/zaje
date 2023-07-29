@@ -75,7 +75,7 @@ Aftering installing `tesseract`, simply invoke the below to install `super-zaje`
 
 ```sh
 # install super-zaje
-$ go install github.com/jessp01/zaje/super-zaje@v0.21.2-2
+$ go install github.com/jessp01/zaje/super-zaje@v0.21.2-3
 ```
 
 You can then use it thusly:
