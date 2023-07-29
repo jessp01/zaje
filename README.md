@@ -88,6 +88,10 @@ For example, try:
 $ ~/go/bin/super-zaje "https://github.com/jessp01/zaje/blob/master/testimg/go1.png?raw=true"
 ```
 
+**NOTE**: `zaje` is capable of detecting the lexer to use based on the first line of text but with images, you'll often
+need to help it and specify a designated lexer by passing `-l $NAME` (e.g: `zaje -l sh`, `zaje -l server-log`, etc).
+
+
 ### ASCIInema screencast (Not a video!)
 
 You can copy all text (commands, outputs, etc) straight off the player:)
