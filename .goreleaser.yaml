@@ -14,7 +14,7 @@ builds:
       - darwin
   - id: zaje
     main: main.go
-  - id: super-zaje
+  - id: superzaje
     main: ./super-zaje/super-zaje.go
 
 archives:
