@@ -19,15 +19,15 @@ builds:
     id: zaje
     binary: zaje
 
-  - env: [CGO_ENABLED=0]
-    goos:
-      - linux
-    goarch:
-      - amd64
+#  - env: [CGO_ENABLED=0]
+#    goos:
+#      - linux
+#    goarch:
+#      - amd64
 
-    main: ./super-zaje
-    id: super-zaje
-    binary: super-zaje
+#    main: ./super-zaje
+#    id: super-zaje
+#    binary: super-zaje
 
 archives:
   - format: tar.gz
