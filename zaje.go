@@ -24,6 +24,7 @@ var def *highlight.Def
 var syn_dir string
 var highlight_lexer string
 var debug bool
+var addLineNumbers bool
 
 func printDebugInfo() {
 	fmt.Println("DEBUG INFO:")
@@ -89,6 +90,11 @@ func colourOutput(matches []highlight.LineMatch, data []byte) {
 	lines := strings.Split(string(data), "\n")
 	for lineN, l := range lines {
 		colN := 0
+		if addLineNumbers {
+			color.Set(color.FgYellow)
+			fmt.Print(fmt.Sprintf("%d", lineN+1) + " ")
+			color.Unset()
+		}
 		for _, c := range l {
 			if group, ok := matches[lineN][colN]; ok {
 				switch group {
@@ -206,7 +212,7 @@ COPYRIGHT:
 `
 	app.Name = "zaje"
 	app.Usage = "Syntax highlighter to cover all your shell needs"
-	app.Version = "0.21.2-1"
+	app.Version = "0.21.2-3"
 	app.EnableBashCompletion = true
 	cli.VersionFlag = cli.BoolFlag{
 		Name:  "print-version, V",
@@ -240,6 +246,11 @@ COPYRIGHT:
 			Name:        "debug, d",
 			Usage:       "Run in debug mode.\n",
 			Destination: &debug,
+		},
+		cli.BoolFlag{
+			Name:        "add-line-numbers, ln",
+			Usage:       "Add line numbers.\n",
+			Destination: &addLineNumbers,
 		},
 	}
 
