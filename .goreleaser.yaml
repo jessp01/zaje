@@ -9,13 +9,16 @@ before:
 builds:
   - env:
       - CGO_ENABLED=0
+  - id: zaje
+    main: main.go
     goos:
       - linux
       - darwin
-  - id: zaje
-      main: main.go
   - id: superzaje
-      main: ./super-zaje/super-zaje.go
+    main: ./super-zaje/super-zaje.go
+    goos:
+      - linux
+      - darwin
 
 archives:
   - format: tar.gz
