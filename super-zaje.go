@@ -8,15 +8,18 @@ import (
 	"io"
 	"io/ioutil"
 	"log"
-	"os"
-	"regexp"
 	"net/http"
+	"os"
+	"path/filepath"
+	"regexp"
 	"strings"
 	"time"
 	//"reflect"
 
+	"github.com/anyascii/go"
 	"github.com/fatih/color"
 	"github.com/jessp01/gohighlight"
+	"github.com/otiai10/gosseract/v2"
 	"github.com/urfave/cli"
 )
 
@@ -175,6 +178,34 @@ func handleData(filename string, data []byte) {
 	colourOutput(matches, data)
 }
 
+func downloadFile(URL, fileName string) error {
+	//fmt.Printf("%s, %s\n", URL,fileName)
+	//Get the response bytes from the url
+	response, err := http.Get(URL)
+	if err != nil {
+		return err
+	}
+	defer response.Body.Close()
+
+	if response.StatusCode != 200 {
+		return errors.New("Received non 200 response code")
+	}
+	//Create a empty file
+	file, err := os.Create(fileName)
+	if err != nil {
+		return err
+	}
+	defer file.Close()
+
+	//Write the bytes to the fiel
+	_, err = io.Copy(file, response.Body)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func main() {
 
 	app := cli.NewApp()
@@ -260,17 +291,36 @@ COPYRIGHT:
 			}
 			filename = c.Args().Get(0)
 			httpRegex := regexp.MustCompile("^http(s)?://")
-			if httpRegex.Match([]byte(filename)){
-			    resp, err = http.Get(filename)
-			    if err != nil {
-				log.Fatal(err)
-			    }
-			    defer resp.Body.Close()
-			    data, err = ioutil.ReadAll(resp.Body)
-			    // get the base URL so we can adjust relative links and images
-			}else{
-			    data, _ = ioutil.ReadFile(filename)
+			if httpRegex.Match([]byte(filename)) {
+				resp, err = http.Get(filename)
+				if err != nil {
+					log.Fatal(err)
+				}
+				defer resp.Body.Close()
+				data, err = ioutil.ReadAll(resp.Body)
+			} else {
+				data, _ = ioutil.ReadFile(filename)
 			}
+
+			mimeType := http.DetectContentType(data)
+			if strings.HasPrefix(mimeType, "image") {
+				imgDestination := os.TempDir() + "/" + filepath.Base(filename)
+				downloadFile(filename, imgDestination)
+				client := gosseract.NewClient()
+				defer client.Close()
+
+				client.Trim = true
+				client.SetImage(imgDestination)
+				client.SetLanguage("eng")
+
+				text, err := client.Text()
+				if err != nil {
+					panic(err)
+				}
+				text = anyascii.Transliterate(text)
+				data = []byte(text)
+			}
+
 			handleData(filename, data)
 		} else {
 			// if progressive (i.e `tail -f` or ping)
