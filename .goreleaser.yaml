@@ -7,18 +7,29 @@ before:
     # you may remove this if you don't need go generate
     - go generate ./...
 builds:
-  - env:
-      - CGO_ENABLED=0
-  - id: zaje
-    main: main.go
+  - env: [CGO_ENABLED=0]
     goos:
       - linux
       - darwin
-  - id: superzaje
-    main: ./super-zaje/super-zaje.go
+    goarch:
+      - amd64
+      - arm64
+
+    main: .
+    id: zaje
+    binary: zaje
+
+  - env: [CGO_ENABLED=0]
     goos:
       - linux
       - darwin
+    goarch:
+      - amd64
+      - arm64
+
+    main: ./super-zaje
+    id: super-zaje
+    binary: super-zaje
 
 archives:
   - format: tar.gz
