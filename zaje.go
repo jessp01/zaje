@@ -8,9 +8,9 @@ import (
 	"io"
 	"io/ioutil"
 	"log"
+	"net/http"
 	"os"
 	"regexp"
-	"net/http"
 	"strings"
 	"time"
 	//"reflect"
@@ -260,16 +260,16 @@ COPYRIGHT:
 			}
 			filename = c.Args().Get(0)
 			httpRegex := regexp.MustCompile("^http(s)?://")
-			if httpRegex.Match([]byte(filename)){
-			    resp, err = http.Get(filename)
-			    if err != nil {
-				log.Fatal(err)
-			    }
-			    defer resp.Body.Close()
-			    data, err = ioutil.ReadAll(resp.Body)
-			    // get the base URL so we can adjust relative links and images
-			}else{
-			    data, _ = ioutil.ReadFile(filename)
+			if httpRegex.Match([]byte(filename)) {
+				resp, err = http.Get(filename)
+				if err != nil {
+					log.Fatal(err)
+				}
+				defer resp.Body.Close()
+				data, err = ioutil.ReadAll(resp.Body)
+				// get the base URL so we can adjust relative links and images
+			} else {
+				data, _ = ioutil.ReadFile(filename)
 			}
 			handleData(filename, data)
 		} else {
