@@ -44,7 +44,7 @@ Being a Golang application, you can also build it yourself with `go` get or fetc
 Fetching from the master branch using `go`:
 
 ```sh
-$ go install github.com/jessp01/zaje
+$ go install github.com/jessp01/zaje@v0.21.2-4
 ```
 
 If you take this route, you'll need to copy the `highlight/syntax_files` and `utils/functions.rc` manually.
@@ -75,7 +75,7 @@ Aftering installing `tesseract`, simply invoke the below to install `super-zaje`
 
 ```sh
 # install super-zaje
-$ go install github.com/jessp01/zaje/super-zaje@v0.21.2-3
+$ go install github.com/jessp01/zaje/super-zaje@v0.21.2-4
 ```
 
 You can then use it thusly:
