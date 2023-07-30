@@ -16,7 +16,6 @@ import (
 	"time"
 	//"reflect"
 
-	"github.com/anyascii/go"
 	"github.com/fatih/color"
 	"github.com/jessp01/gohighlight"
 	"github.com/otiai10/gosseract/v2"
@@ -329,18 +328,19 @@ COPYRIGHT:
 				client.Trim = true
 				client.SetImage(imgDestination)
 				client.SetLanguage("eng")
+				err := client.SetVariable("tessedit_char_whitelist", " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~")
 
 				text, err := client.Text()
 				if err != nil {
 					panic(err)
 				}
-				if highlight_lexer == "go" {
+				/*if highlight_lexer == "go" {
 					// anyascii.Transliterate() does a good job but it will replace any UNICODE backtick with a single quout
 					// in most cases, this is sensible as that was probably the original char. In Go, it's more likely that
 					// it was an actual backtick as single quotes are mostly used for runes. It's all guesswork but well...
 					text = strings.Replace(text, "‘", "`", -1)
 				}
-				text = anyascii.Transliterate(text)
+				text = anyascii.Transliterate(text)*/
 				if removeLineNumbers {
 					reLineNumber := regexp.MustCompile(`(?m)^\s*\d+\s(.*)`)
 					text = reLineNumber.ReplaceAllString(text, `$1`)
