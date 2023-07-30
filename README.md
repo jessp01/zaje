@@ -55,7 +55,7 @@ If you take this route, you'll need to copy the `highlight/syntax_files` and `ut
 It's a separate binary because it depends on the [gosseract](https://github.com/otiai10/gosseract) which in turn
 depends on `libtesseract` and requires its SOs to be available on the machine.
 
-First, install `zaje` using `install_zaje.sh`, and then...
+First, install `zaje` using [install_zaje.sh](./install_zaje.sh), and then...
 
 #### Installing on Debian/Ubuntu
 ```sh
