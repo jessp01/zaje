@@ -91,9 +91,11 @@ func getDefs(filename string, data []byte) []highlight.LineMatch {
 
 func colourOutput(matches []highlight.LineMatch, data []byte) {
 	lines := strings.Split(string(data), "\n")
+	lastLineNumberLength := len (fmt.Sprint(len(lines)))
 	for lineN, l := range lines {
 		colN := 0
 		if addLineNumbers {
+			fmt.Print(strings.Repeat(" ", lastLineNumberLength - len(fmt.Sprint(lineN+1))))
 			color.Set(color.FgYellow)
 			fmt.Print(fmt.Sprintf("%d", lineN+1) + " ")
 			color.Unset()
