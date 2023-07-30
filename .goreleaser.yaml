@@ -18,7 +18,7 @@ builds:
       - amd64
       - arm64
 
-    main: cmd
+    main: cmd/zaje.go
     id: zaje
     binary: zaje
 
