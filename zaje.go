@@ -15,8 +15,8 @@ import (
 	"time"
 	//"reflect"
 
-    "github.com/fatih/color"
-    "github.com/jessp01/gohighlight"
+	"github.com/fatih/color"
+	"github.com/jessp01/gohighlight"
 	"github.com/urfave/cli"
 )
 
