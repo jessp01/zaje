@@ -10,11 +10,13 @@ import (
 	"net/http"
 	"os"
 	"strings"
+	"time"
 
 	// "reflect"
 
 	"github.com/fatih/color"
 	highlight "github.com/jessp01/gohighlight"
+	"github.com/urfave/cli"
 )
 
 var def *highlight.Def
@@ -34,6 +36,78 @@ var AddLineNumbers bool
 // RemoveLineNumbers useful when working on an image input
 var RemoveLineNumbers bool
 
+// PopulateAppMetadata see https://github.com/urfave/cli/blob/v1.22.14/docs/v1/manual.md#customization-1
+func PopulateAppMetadata(app *cli.App) {
+	cli.AppHelpTemplate = `NAME:
+   {{.Name}} - {{.Usage}}
+
+USAGE:
+   {{.HelpName}} {{if .VisibleFlags}}[global options]{{end}}{{if .Commands}} command [command options]{{end}} {{if .ArgsUsage}}{{.ArgsUsage}}{{else}}[input-file || - ]{{end}}
+   {{if len .Authors}}
+COMMANDS:
+{{range .Commands}}{{if not .HideHelp}}   {{join .Names ", "}}{{ "\t"}}{{.Usage}}{{ "\n" }}{{end}}{{end}}{{end}}{{if .VisibleFlags}}
+GLOBAL OPTIONS:
+   {{range .VisibleFlags}}{{.}}{{ "\n" }}
+   {{end}}{{end}}{{if .Copyright }}
+EXAMPLES:
+To use {{.Name}} as a cat replacement:
+$ {{.Name}} /path/to/file
+
+To replace tail -f:
+$ tail -f /path/to/file | {{.Name}} -l server-log -
+(- will make {{.Name}} read progressively from STDIN)
+
+AUTHOR:
+   {{range .Authors}}{{ . }}{{end}}
+   {{end}}{{if .Commands}}
+COPYRIGHT:
+   {{.Copyright}}
+   {{end}}
+`
+	app.Usage = "Syntax highlighter to cover all your shell needs"
+	app.Version = "0.21.3-2"
+	app.EnableBashCompletion = true
+	cli.VersionFlag = cli.BoolFlag{
+		Name:  "print-version, V",
+		Usage: "print only the version",
+	}
+	app.Compiled = time.Now()
+	app.Description = "Highlights text based on regular expressions/strings/characters matching.\n   Can operate on files or data sent to STDIN.\n"
+	app.Authors = []cli.Author{
+		{
+			Name:  "Jesse Portnoy",
+			Email: "jesse@packman.io",
+		},
+	}
+	app.Copyright = "(c) packman.io"
+	app.Flags = []cli.Flag{
+		cli.StringFlag{
+			Name:        "syn-dir, s",
+			Usage:       "Path to lexer files. The `ZAJE_SYNDIR` ENV var is also honoured.\n   If neither is set, ~/.config/zaje/syntax_files will be used.\n",
+			EnvVar:      "ZAJE_SYNDIR",
+			Destination: &SynDir,
+		},
+		cli.StringFlag{
+			Name: "lexer, l",
+			Usage: `config file to use when parsing input. 
+   When none is passed, zaje will attempt to autodetect based on the file name or first line of input. 
+   You can set the path to lexer files by exporting the ZAJE_SYNDIR ENV var. 
+   If not exported, /etc/zaje/highlight will be used.`,
+			Destination: &HighlightLexer,
+		},
+		cli.BoolFlag{
+			Name:        "debug, d",
+			Usage:       "Run in debug mode.\n",
+			Destination: &Debug,
+		},
+		cli.BoolFlag{
+			Name:        "add-line-numbers, ln",
+			Usage:       "Add line numbers.\n",
+			Destination: &AddLineNumbers,
+		},
+	}
+}
+
 func printDebugInfo() {
 	fmt.Println("DEBUG INFO:")
 	fmt.Println("Syntax files dir: " + SynDir)
@@ -46,11 +120,13 @@ func getDefs(filename string, data []byte) []highlight.LineMatch {
 
 	if SynDir == "" {
 		if SynDir == "" {
-			if stat, err := os.Stat(os.Getenv("HOME") + "/.config/zaje/syntax_files"); err == nil && stat.IsDir() {
-				SynDir = os.Getenv("HOME") + "/.config/zaje/syntax_files"
+			checkPath := os.Getenv("HOME") + "/.config/zaje/syntax_files"
+			if stat, err := os.Stat(checkPath); err == nil && stat.IsDir() {
+				SynDir = checkPath
 			} else {
-				if stat, err := os.Stat("/etc/zaje/syntax_files"); err == nil && stat.IsDir() {
-					SynDir = "/etc/zaje/syntax_files"
+				checkPath := "/etc/zaje/syntax_files"
+				if stat, err := os.Stat(checkPath); err == nil && stat.IsDir() {
+					SynDir = checkPath
 				}
 			}
 		}
