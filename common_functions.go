@@ -36,6 +36,9 @@ var AddLineNumbers bool
 // RemoveLineNumbers useful when working on an image input
 var RemoveLineNumbers bool
 
+var userSynDir = os.Getenv("HOME") + "/.config/zaje/syntax_files"
+var globalSynDir = "/etc/zaje/syntax_files"
+
 // PopulateAppMetadata see https://github.com/urfave/cli/blob/v1.22.14/docs/v1/manual.md#customization-1
 func PopulateAppMetadata(app *cli.App) {
 	cli.AppHelpTemplate = `NAME:
@@ -83,7 +86,7 @@ COPYRIGHT:
 	app.Flags = []cli.Flag{
 		cli.StringFlag{
 			Name:        "syn-dir, s",
-			Usage:       "Path to lexer files. The `ZAJE_SYNDIR` ENV var is also honoured.\n   If neither is set, ~/.config/zaje/syntax_files will be used.\n",
+			Usage:       "Path to lexer files. The `ZAJE_SYNDIR` ENV var is also honoured.\n   If neither is set, " + userSynDir + " will be used.\n",
 			EnvVar:      "ZAJE_SYNDIR",
 			Destination: &SynDir,
 		},
@@ -120,13 +123,11 @@ func getDefs(filename string, data []byte) []highlight.LineMatch {
 
 	if SynDir == "" {
 		if SynDir == "" {
-			checkPath := os.Getenv("HOME") + "/.config/zaje/syntax_files"
-			if stat, err := os.Stat(checkPath); err == nil && stat.IsDir() {
-				SynDir = checkPath
+			if stat, err := os.Stat(userSynDir); err == nil && stat.IsDir() {
+				SynDir = userSynDir
 			} else {
-				checkPath := "/etc/zaje/syntax_files"
-				if stat, err := os.Stat(checkPath); err == nil && stat.IsDir() {
-					SynDir = checkPath
+				if stat, err := os.Stat(globalSynDir); err == nil && stat.IsDir() {
+					SynDir = globalSynDir
 				}
 			}
 		}
