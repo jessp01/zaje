@@ -4,11 +4,8 @@ import (
 	"bufio"
 	"errors"
 	"io"
-	"io/ioutil"
 	"log"
-	"net/http"
 	"os"
-	"regexp"
 
 	// "reflect"
 
@@ -29,25 +26,15 @@ func main() {
 		}
 
 		var filename string
-		var data []byte
-		var resp *http.Response
 
 		if fi.Mode()&os.ModeNamedPipe == 0 {
 			if c.NArg() < 1 {
-				return errors.New("no input file provided. `zaje` needs a file or data from STDIN")
+				return errors.New("no input file provided. " + app.Name + " needs a file or data from STDIN")
 			}
 			filename = c.Args().Get(0)
-			httpRegex := regexp.MustCompile("^http(s)?://")
-			if httpRegex.Match([]byte(filename)) {
-				resp, err = http.Get(filename)
-				if err != nil {
-					log.Fatal(err)
-				}
-				defer resp.Body.Close()
-				data, err = ioutil.ReadAll(resp.Body)
-				// get the base URL so we can adjust relative links and images
-			} else {
-				data, _ = ioutil.ReadFile(filename)
+			data, err := zaje.ReadDataFromFile(filename)
+			if err != nil {
+				log.Fatal(err)
 			}
 			zaje.HandleData(filename, data)
 		} else {
@@ -61,7 +48,7 @@ func main() {
 				}
 
 				if err := scanner.Err(); err != nil {
-					return err
+					log.Fatal(err)
 				}
 				// read everything and process
 			} else {

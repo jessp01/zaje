@@ -9,6 +9,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"regexp"
 	"strings"
 	"time"
 
@@ -292,4 +293,23 @@ func DownloadFile(url, fileName string) error {
 	}
 
 	return nil
+}
+
+// ReadDataFromFile reads from local file or a remote HTTP(s) URL and returns data
+func ReadDataFromFile(filename string) ([]byte, error) {
+	var data []byte
+	var resp *http.Response
+	var err error
+	httpRegex := regexp.MustCompile("^http(s)?://")
+	if httpRegex.Match([]byte(filename)) {
+		resp, err = http.Get(filename)
+		if err != nil {
+			return nil, err
+		}
+		defer resp.Body.Close()
+		data, err = ioutil.ReadAll(resp.Body)
+	} else {
+		data, _ = ioutil.ReadFile(filename)
+	}
+	return data, err
 }
