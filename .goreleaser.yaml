@@ -19,7 +19,7 @@ builds:
       - arm64
 
     main: .
-    id: zaje
+    id: cmd/zaje
     binary: zaje
 
 #  - env: [CGO_ENABLED=0]
