@@ -69,7 +69,7 @@ COPYRIGHT:
    {{end}}
 `
 	app.Usage = "Syntax highlighter to cover all your shell needs"
-	app.Version = "0.21.3-2"
+	app.Version = "0.21.4"
 	app.EnableBashCompletion = true
 	cli.VersionFlag = cli.BoolFlag{
 		Name:  "print-version, V",
