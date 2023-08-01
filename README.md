@@ -44,7 +44,7 @@ Being a Golang application, you can also build it yourself with `go` get or fetc
 Fetching from the master branch using `go`:
 
 ```sh
-$ go install github.com/jessp01/zaje/cmd@v0.21.3-2
+$ go install github.com/jessp01/zaje/cmd@v0.21.3-3
 ```
 
 If you take this route, you'll need to copy the `highlight/syntax_files` and `utils/functions.rc` manually.
