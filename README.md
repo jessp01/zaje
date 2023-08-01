@@ -1,5 +1,6 @@
 # ZAJE
 
+[![License][badge-license]][license]
 [![Go Report Card](https://goreportcard.com/badge/github.com/jessp01/zaje)](https://goreportcard.com/report/github.com/jessp01/zaje)
 [![GoDoc](https://godoc.org/github.com/jessp01/zaje?status.svg)](http://godoc.org/github.com/jessp01/zaje)
 [![AGPLv3](https://img.shields.io/badge/AGPLv3-blue.svg)](https://github.com/jessp01/zaje/blob/master/LICENSE)
@@ -166,3 +167,6 @@ COPYRIGHT:
    (c) packman.io
 
 ```
+
+[license]: ./LICENSE
+[badge-license]: https://img.shields.io/github/license/jessp01/zaje.svg?maxAge=604800
