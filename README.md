@@ -1,6 +1,5 @@
 # ZAJE
 
-[![Go Report Card][go-report-card-badge]][go-report-card]
 [![GoDoc][go-docs-badge]][go-docs]
 [![License][badge-license]][license]
 
