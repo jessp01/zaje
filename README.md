@@ -1,7 +1,7 @@
 # ZAJE
 
-[![Go Report Card][go-report-card]][go-report-card]
-[![GoDoc][go-docs]][go-docs]
+[![Go Report Card][go-report-card-badge]][go-report-card]
+[![GoDoc][go-docs-badge]][go-docs]
 [![License][badge-license]][license]
 
 `zaje` is a syntax highlighter that aims to cover all your shell colouring needs. It can act as an ad-hoc replacement for `cat` and, with a spot of one-line shell functions `tail` and other friends.
@@ -169,5 +169,7 @@ COPYRIGHT:
 
 [license]: ./LICENSE
 [badge-license]: https://img.shields.io/github/license/jessp01/zaje.svg?maxAge=604800
-[go-docs]: https://godoc.org/github.com/jessp01/zaje?status.svg
-[go-report-card]: https://goreportcard.com/badge/github.com/jessp01/zaje
+[go-docs-badge]: https://godoc.org/github.com/jessp01/zaje?status.svg
+[go-docs]: https://godoc.org/github.com/jessp01/zaje
+[go-report-card-badge]: https://goreportcard.com/badge/github.com/jessp01/zaje
+[go-report-card]: https://goreportcard.com/report/github.com/jessp01/zaje
