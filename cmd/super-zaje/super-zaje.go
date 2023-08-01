@@ -58,6 +58,9 @@ func main() {
 				client.SetImage(imgDestination)
 				client.SetLanguage("eng")
 				err := client.SetVariable("tessedit_char_whitelist", " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~")
+				if err != nil {
+					panic(err)
+				}
 
 				text, err := client.Text()
 				if err != nil {

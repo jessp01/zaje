@@ -168,7 +168,7 @@ COPYRIGHT:
 ```
 
 [license]: ./LICENSE
-[badge-license]: https://img.shields.io/github/license/jessp01/zaje.svg?maxAge=604800
+[badge-license]: https://img.shields.io/github/license/jessp01/zaje.svg
 [go-docs-badge]: https://godoc.org/github.com/jessp01/zaje?status.svg
 [go-docs]: https://godoc.org/github.com/jessp01/zaje
 [go-report-card-badge]: https://goreportcard.com/badge/github.com/jessp01/zaje
