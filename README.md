@@ -1,6 +1,7 @@
 # ZAJE
 
 [![GoDoc][go-docs-badge]][go-docs]
+[![GoReportCard][go-report-card-badge]][go-report-card]
 [![License][badge-license]][license]
 
 `zaje` is a syntax highlighter that aims to cover all your shell colouring needs. It can act as an ad-hoc replacement for `cat` and, with a spot of one-line shell functions `tail` and other friends.
