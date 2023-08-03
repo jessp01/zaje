@@ -26,7 +26,7 @@ jobs:
     - name: Test
       run: |
         set -x
-        pip install pre-commit || cat /home/runner/.cache/pre-commit/pre-commit.log && exit 1 
+        pip install pre-commit || true 
         pre-commit install || cat /home/runner/.cache/pre-commit/pre-commit.log && exit 1
         pre-commit run --all-files || cat /home/runner/.cache/pre-commit/pre-commit.log && exit 2
         go test -v
