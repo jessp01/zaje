@@ -25,10 +25,11 @@ jobs:
       run: go build -v 
     - name: Test
       run: |
-        FMT_ISSUES=$(gofmt -l .)
-        if test -n "$FMT_ISSUES" ;then printf "gofmt found problems:\n$FMT_ISSUES\n";exit 11; fi
-        sudo ./install_zaje.sh && ls -al /usr/local/bin/zaje && ls -al /etc/profile.d/zaje.sh && type df && df -h
-        df -h / | zaje -d 
+        pip install pre-commit
+        pre-commit install
+        pre-commit run --all-files
+        go test -v
+        sudo ./install_zaje.sh
 
     #- name: Test
     #run: go test -v 
