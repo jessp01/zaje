@@ -112,6 +112,11 @@ if which zaje > /dev/null 2>&1 ;then
 	fi
     }
 
+    apt-cache()
+    {
+	$(which apt-cache) "$@"  | zaje -l apt
+    }
+
 else
     echo "Couldn't find zaje. Exiting without sourcing functions"
 fi

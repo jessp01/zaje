@@ -4,7 +4,7 @@ go 1.19
 
 require (
 	github.com/fatih/color v1.15.0
-	github.com/jessp01/gohighlight v0.21.1-15
+	github.com/jessp01/gohighlight v0.21.1-17
 	github.com/otiai10/gosseract/v2 v2.4.0
 	github.com/urfave/cli v1.22.14
 )

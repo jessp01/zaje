@@ -69,7 +69,7 @@ COPYRIGHT:
    {{end}}
 `
 	app.Usage = "Syntax highlighter to cover all your shell needs"
-	app.Version = "0.21.4"
+	app.Version = "0.21.5"
 	app.EnableBashCompletion = true
 	cli.VersionFlag = cli.BoolFlag{
 		Name:  "print-version, V",
@@ -120,6 +120,11 @@ func printDebugInfo() {
 	fmt.Println(def)
 }
 
+// NullifyDef this is only needed for the test in `zaje_test.go`
+func NullifyDef() {
+	def = nil
+}
+
 func getDefs(filename string, data []byte) []highlight.LineMatch {
 
 	if SynDir == "" {
@@ -135,7 +140,7 @@ func getDefs(filename string, data []byte) []highlight.LineMatch {
 	}
 
 	var defs []*highlight.Def
-	lerr, warnings := highlight.ParseSyntaxFiles(SynDir, &defs)
+	warnings, lerr := highlight.ParseSyntaxFiles(SynDir, &defs)
 	if lerr != nil {
 		log.Fatal(lerr)
 	}
