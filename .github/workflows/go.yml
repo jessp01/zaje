@@ -26,9 +26,8 @@ jobs:
     - name: Test
       run: |
         pip install pre-commit
-        pre-commit install
-        pre-commit run --all-files
-        cat /home/runner/.cache/pre-commit/pre-commit.log
+        pre-commit install || cat /home/runner/.cache/pre-commit/pre-commit.log && exit 1
+        pre-commit run --all-files || cat /home/runner/.cache/pre-commit/pre-commit.log && exit 2
         go test -v
         sudo ./install_zaje.sh
 
