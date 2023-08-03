@@ -26,7 +26,7 @@ jobs:
     - name: Test
       run: |
         set -e
-        sudo apt-get -qq update && apt-get install -y libtesseract-dev libleptonica-dev tesseract-ocr-eng golang-go
+        sudo apt-get -qq update && sudo apt-get install -y libtesseract-dev libleptonica-dev tesseract-ocr-eng golang-go
         go install -v github.com/go-critic/go-critic/cmd/gocritic@latest
         go install https://pkg.go.dev/golang.org/x/tools/cmd/goimports@latest
         go install golang.org/x/lint/golint@latest
