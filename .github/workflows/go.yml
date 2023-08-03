@@ -28,6 +28,7 @@ jobs:
         pip install pre-commit
         pre-commit install
         pre-commit run --all-files
+        cat /home/runner/.cache/pre-commit/pre-commit.log
         go test -v
         sudo ./install_zaje.sh
 
