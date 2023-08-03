@@ -10,6 +10,7 @@ log_use_fancy_output () {
         $TPUT hpa 60 >/dev/null 2>&1 &&
         $TPUT setaf 1 >/dev/null 2>&1 
     then
+# shellcheck disable=SC2015
         [ -z "$FANCYTTY" ] && FANCYTTY=1 || true 
     else 
         FANCYTTY=0
@@ -79,6 +80,7 @@ mv README.md LICENSE "$CONFIG_DIR"
 TIMESTAMP=$(date +%s)
 
 if [ -f "$CONFIG_DIR/${NAME}_functions.rc" ];then
+# shellcheck disable=SC2059
     printf "${BOLD}${YELLOW}$FUNCTIONS_RC_FILE already exists...\n${NORMAL}I'll place the new copy under ${BLUE}${FUNCTIONS_RC_FILE}.${TIMESTAMP}${NORMAL}\n\n"
     FUNCTIONS_RC_FILE="${FUNCTIONS_RC_FILE}.${TIMESTAMP}"
 fi
@@ -86,6 +88,7 @@ fi
 curl -Ls "https://${GIT_BASE_DOMAIN}/$GH_SPACE/$NAME/raw/$LATEST_VER/utils/functions.rc" -o "$FUNCTIONS_RC_FILE"
 
 if [ -d "$LEXERS_DIR" ];then
+# shellcheck disable=SC2059
     printf "${YELLOW}$LEXERS_DIR already exists...\n${NORMAL}I'll place the new lexers under ${BLUE}${LEXERS_DIR}.${TIMESTAMP}${NORMAL}\n\n"
     LEXERS_DIR="${LEXERS_DIR}.${TIMESTAMP}"
 fi
@@ -94,40 +97,53 @@ tar zxf "$HIGHLIGHT_SOURCE_ARCHIVE"
 VERSION_NO_V=$(echo "$LATEST_HIGHLIGHT_VER" | sed 's/^v\(.*\)/\1/')
 mv "$HIGHLIGHT_REPO_NAME-$VERSION_NO_V/syntax_files" "$LEXERS_DIR"
 
+# shellcheck disable=SC2059
 printf "All sorted:)\n\n${BLUE}* $NAME${NORMAL} binary is in ~/bin/${NAME}\n"
+# shellcheck disable=SC2059
 printf "* Useful helper functions are under ${BLUE}$FUNCTIONS_RC_FILE\n${NORMAL}  Source them with ${BLUE}'. $FUNCTIONS_RC_FILE'${NORMAL}.\n"
+# shellcheck disable=SC2059
 printf "* Lexers are under ${BLUE}$LEXERS_DIR${NORMAL}\n\n"
+# shellcheck disable=SC2059
 printf "Downloaded archives are available in ${BLUE}$TMP_DIR${NORMAL}.. Feel free to discard them.${UNSET}\n"
 
 if [ "$(id -u)" = 0 ];then
     cp ~/bin/${NAME} /usr/local/bin/${NAME}
+# shellcheck disable=SC2059
     printf "Copied ${BLUE}~/bin/${NAME}${NORMAL} to ${BLUE}/usr/local/bin/${NAME}${NORMAL}\n"
     # we don't want to override if exists
     if [ ! -r /etc/profile.d/zaje.sh ];then
 	cp "$FUNCTIONS_RC_FILE" /etc/profile.d/zaje.sh
+# shellcheck disable=SC2059
 	printf "Copied ${BLUE}$FUNCTIONS_RC_FILE${NORMAL} to ${BLUE}/etc/profile.d/${NAME}.sh${NORMAL}\n"
     fi
     if [ ! -d /etc/${NAME}/syntax_files ];then
 	mkdir -p /etc/${NAME}
 	cp -r "$LEXERS_DIR" "/etc/${NAME}"
+# shellcheck disable=SC2059
 	printf "Copied ${BLUE}$LEXERS_DIR${NORMAL} to ${BLUE}/etc/${NAME}${NORMAL}\n"
     fi
 fi
 
-. $FUNCTIONS_RC_FILE
+# shellcheck disable=SC1090
+. "$FUNCTIONS_RC_FILE"
 
 cd -
+# shellcheck disable=SC2059
 printf "\nWe've sourced ${BLUE}$FUNCTIONS_RC_FILE${NORMAL} in this script to check that it is working... sample output:\n\n"
 
+# shellcheck disable=SC2059
 printf "${YELLOW}df -h:${NORMAL}\n"
 df -h /home /
 
+# shellcheck disable=SC2059
 printf "${YELLOW}du -h $0:${NORMAL}\n"
 du -h "$0"
 
+# shellcheck disable=SC2059
 printf "${YELLOW}ping localhost -c1:${NORMAL}\n"
 ping localhost -c1
 
+# shellcheck disable=SC2059
 printf "\n${YELLOW}hello.c:${NORMAL}\n"
 printf "#include <stdio.h>\nprintf(\"hello world\");\n" | zaje
 

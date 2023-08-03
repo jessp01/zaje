@@ -2,7 +2,7 @@
 
 # protect against sourcing if zaje cannot be found.
 
-if which zaje > /dev/null 2>&1 ;then
+if command -v zaje > /dev/null 2>&1 ; then
 
     # An example for how you can wrap common utils so that their output is filtered through zaje.
 
@@ -29,7 +29,7 @@ if which zaje > /dev/null 2>&1 ;then
 	#if echo $FILE | grep -q nginx || echo $FILE | grep -q apache;then
 	#fi
 
-	if [ $1 == "-f" ];then
+	if [ "$1" = "-f" ];then
 	    $(which $BIN) "$@" | zaje -l "$LEXER" -
 	else
 	    $(which $BIN) "$@" | zaje -l "$LEXER"
@@ -45,7 +45,7 @@ if which zaje > /dev/null 2>&1 ;then
     lsb_release()
     {
 	BIN="lsb_release"
-	if $(which $BIN) > /dev/null 2>&1 ;then
+	if command -v "$BIN" > /dev/null 2>&1 ;then
 	    $(which $BIN) "$@" | zaje -l yaml
 	fi
     }
