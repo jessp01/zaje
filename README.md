@@ -5,7 +5,7 @@
 [![GoReportCard][go-report-card-badge]][go-report-card]
 [![License][badge-license]][license]
 
-`zaje` is a syntax highlighter that aims to cover all your shell colouring needs. It can act as an ad-hoc replacement for `cat` and, with a spot of one-line shell functions `tail` and other friends.
+`zaje` is a syntax highlighter that aims to cover all your shell colouring needs. It can act as an ad hoc replacement for `cat` and, with a spot of one-line shell functions `tail` and other friends.
 
 ## Motivation
 
@@ -17,7 +17,7 @@ to very little effort.
 ### Features
 
 - Supports over a 100 lexers for programming languages, configuration and log formats and UNIX commands (this is done using the
-  [highlight Go package](https://github.com/jessp01/gohighlight)
+  [highlight Go package](https://github.com/jessp01/gohighlight))
 - Can accept input as an argument as well as from an `STDIN` stream
 - Can detect the lexer to use based on:
     * The file name (when acting in `cat` mode)
@@ -67,12 +67,12 @@ $ sudo apt-get install -y libtesseract-dev libleptonica-dev tesseract-ocr-eng go
 Most popular Linux distros include the `libtesseract` package but it may be named differently. If the official repos of
 your distro of choice do not have it, you can always compile it from source.
 
-#### Installing on Darwin (what people mistakingly refer to as MacOS)
+#### Installing on Darwin (what people mistakenly refer to as MacOS)
 ```sh
 $ brew install tesseract
 ```
 
-Aftering installing `tesseract`, simply invoke the below to install `super-zaje`:
+After installing `tesseract`, simply invoke the below to install `super-zaje`:
 
 ```sh
 # install super-zaje
@@ -120,7 +120,7 @@ comment: high.green will colour the char group bright green
 preproc: will colour the char group bright red
 
 ```
-Specifying the colour names in the YML is also supported, see [df.yaml](https://github.com/jessp01/gohighlight/blob/master/syntax_files/df.yaml) for an exmaple.
+Specifying the colour names in the YML is also supported, see [df.yaml](https://github.com/jessp01/gohighlight/blob/master/syntax_files/df.yaml) for an example.
 
 If your new lexer doesn't seem to work, run `zaje` with `-d` or `--debug` to get more info.
 
