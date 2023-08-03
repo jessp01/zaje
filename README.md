@@ -1,5 +1,6 @@
 # ZAJE
 
+[![.github/workflows/go.yml][badge-build]][build]
 [![GoDoc][go-docs-badge]][go-docs]
 [![GoReportCard][go-report-card-badge]][go-report-card]
 [![License][badge-license]][license]
@@ -173,3 +174,5 @@ COPYRIGHT:
 [go-docs]: https://godoc.org/github.com/jessp01/zaje
 [go-report-card-badge]: https://goreportcard.com/badge/github.com/jessp01/zaje
 [go-report-card]: https://goreportcard.com/report/github.com/jessp01/zaje
+[badge-build]: https://github.com/jessp01/zaje/actions/workflows/go.yml/badge.svg
+[build]: https://github.com/jessp01/zaje/actions/workflows/go.yml
