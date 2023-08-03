@@ -112,7 +112,7 @@ if which zaje > /dev/null 2>&1 ;then
 	fi
     }
 
-    apt-cache()
+    apt_cache()
     {
 	$(which apt-cache) "$@"  | zaje -l apt
     }
