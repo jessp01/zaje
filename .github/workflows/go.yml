@@ -24,7 +24,8 @@ jobs:
     - name: Build
       run: go build -v 
     - name: Test
-      env: TERM=xterm-256color
+      env: 
+        TERM: term-256color
       run: |
         set -e
         sudo apt-get -qq update && sudo apt-get install -y libtesseract-dev libleptonica-dev tesseract-ocr-eng golang-go
