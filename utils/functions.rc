@@ -74,6 +74,18 @@ if command -v zaje > /dev/null 2>&1 ; then
 	$(which $BIN) "$@" | zaje -l $BIN
     }
 
+    ifconfig()
+    {
+	BIN="ifconfig"
+	$(which $BIN) "$@" | zaje -l $BIN
+    }
+
+    ip()
+    {
+	BIN="ip"
+	$(which $BIN) "$@" | zaje -l $BIN
+    }
+
     ss()
     {
 	BIN="ss"
