@@ -6,6 +6,49 @@
 [![GoReportCard][go-report-card-badge]][go-report-card]
 [![License][badge-license]][license]
 
+### Installing `super-zaje`
+
+`super-zaje` does everything `zaje` does but provides the additional functionality of extracting text from an image. 
+It's a separate binary because it depends on the [gosseract](https://github.com/otiai10/gosseract) which in turn
+depends on `libtesseract` and requires its SOs to be available on the machine.
+
+First, install `zaje` using [install_zaje.sh](https://github.com/jessp01/zaje/blob/master/install_zaje.sh), and then...
+
+#### Installing on Debian/Ubuntu
+```sh
+# install deps:
+$ sudo apt-get install -y libtesseract-dev libleptonica-dev tesseract-ocr-eng golang-go
+```
+
+Most popular Linux distros include the `libtesseract` package but it may be named differently. If the official repos of
+your distro of choice do not have it, you can always compile it from source.
+
+#### Installing on Darwin (what people mistakenly refer to as MacOS)
+```sh
+$ brew install tesseract
+```
+
+After installing `tesseract`, simply invoke the below to install `super-zaje`:
+
+```sh
+# install super-zaje
+$ go install github.com/jessp01/zaje/cmd/super-zaje@latest
+```
+
+You can then use it thusly:
+```sh
+$ ~/go/bin/super-zaje -l sh </path/to/img/of/http/url>
+```
+
+For example, try:
+```sh
+$ ~/go/bin/super-zaje "https://github.com/jessp01/zaje/blob/master/testimg/go1.png?raw=true"
+```
+
+**NOTE**: `zaje` is capable of detecting the lexer to use based on the first line of text but with images, you'll often
+need to help it and specify a designated lexer by passing `-l $NAME` (e.g: `zaje -l sh`, `zaje -l server-log`, etc).
+
+
 ```yml
 NAME:
    super-zaje - Syntax highlighter to cover all your shell needs
