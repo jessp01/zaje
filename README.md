@@ -83,7 +83,7 @@ $ go install github.com/jessp01/zaje/cmd/super-zaje@latest
 
 You can then use it thusly:
 ```sh
-$ ~/go/bin/super-zaje -l sh </path/to/img/of/http/url>
+$ ~/go/bin/super-zaje -l sh </path/to/local/img/or/http/url>
 ```
 
 For example, try:
