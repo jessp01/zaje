@@ -56,6 +56,12 @@ if command -v zaje > /dev/null 2>&1 ; then
 	$(which $BIN) "$@" | zaje -l $BIN -
     }
 
+    route()
+    {
+	BIN="route"
+	$(which $BIN) "$@" | zaje -l $BIN -
+    }
+
     traceroute()
     {
 	BIN="traceroute"
