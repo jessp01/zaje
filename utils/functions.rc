@@ -59,7 +59,7 @@ if command -v zaje > /dev/null 2>&1 ; then
     route()
     {
 	BIN="route"
-	$(which $BIN) "$@" | zaje -l $BIN -
+	$(which $BIN) "$@" | zaje -l $BIN
     }
 
     traceroute()
