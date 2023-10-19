@@ -96,7 +96,7 @@ COPYRIGHT:
 			Usage: `config file to use when parsing input. 
    When none is passed, zaje will attempt to autodetect based on the file name or first line of input. 
    You can set the path to lexer files by exporting the ZAJE_SYNDIR ENV var. 
-   If not exported, /etc/zaje/highlight will be used.`,
+   If not exported, /etc/zaje/syntax_files will be used.`,
 			Destination: &HighlightLexer,
 		},
 		cli.BoolFlag{
