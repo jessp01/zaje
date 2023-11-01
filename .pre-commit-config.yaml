@@ -1,3 +1,4 @@
+---
 repos:
   - repo: https://github.com/jessp01/pre-commit-golang.git
     rev: v0.5.9

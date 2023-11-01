@@ -1,6 +1,7 @@
 # This workflow will build a golang project
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-go
-
+# For more information see:
+# https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-go
+---
 name: Go
 
 on: [push, pull_request]
@@ -14,31 +15,31 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-    - name: Set up Go
-      uses: actions/setup-go@v4
-      with:
-        go-version: '1.20'
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: '1.20'
 
-    - name: Build
-      run: go build -v 
-    - name: Test
-      env: 
-        TERM: term-256color
-      run: |
-        set -e
-        sudo apt-get -qq update && sudo apt-get install -y libtesseract-dev libleptonica-dev tesseract-ocr-eng golang-go
-        go install github.com/go-critic/go-critic/cmd/gocritic@latest
-        go install golang.org/x/tools/cmd/goimports@latest
-        go install golang.org/x/lint/golint@latest
-        go install github.com/gordonklaus/ineffassign@latest
-        echo $TERM
-        pip install pre-commit  
-        pre-commit install  
-        pre-commit run --all-files
-        go test -v
-        sudo ./install_zaje.sh
+      - name: Build
+        run: go build -v
+      - name: Test
+        env:
+          TERM: term-256color
+        run: |
+          set -e
+          sudo apt-get -qq update && sudo apt-get install -y libtesseract-dev libleptonica-dev tesseract-ocr-eng golang-go
+          go install github.com/go-critic/go-critic/cmd/gocritic@latest
+          go install golang.org/x/tools/cmd/goimports@latest
+          go install golang.org/x/lint/golint@latest
+          go install github.com/gordonklaus/ineffassign@latest
+          echo $TERM
+          pip install pre-commit
+          pre-commit install
+          pre-commit run --all-files
+          go test -v
+          sudo ./install_zaje.sh
 
     #- name: Test
-    #run: go test -v 
+    #run: go test -v
