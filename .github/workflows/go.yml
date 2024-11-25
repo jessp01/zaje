@@ -31,7 +31,7 @@ jobs:
           set -e
           sudo apt-get -qq update && sudo apt-get install -y libtesseract-dev libleptonica-dev tesseract-ocr-eng golang-go
           go install github.com/go-critic/go-critic/cmd/gocritic@latest
-          go install golang.org/x/tools/cmd/goimports@latest
+          # go install golang.org/x/tools/cmd/goimports@latest
           go install golang.org/x/lint/golint@latest
           go install github.com/gordonklaus/ineffassign@latest
           echo $TERM
