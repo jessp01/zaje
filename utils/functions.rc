@@ -32,91 +32,91 @@ if command -v zaje > /dev/null 2>&1 ; then
 	#fi
 
 	if [ "$1" = "-f" ];then
-	    $(which $BIN) "$@" | zaje -l "$LEXER" -
+	    $(which $BIN --skip-alias --skip-functions) "$@" | zaje -l "$LEXER" -
 	else
-	    $(which $BIN) "$@" | zaje -l "$LEXER"
+	    $(which $BIN --skip-alias --skip-functions) "$@" | zaje -l "$LEXER"
 	fi
     }
 
     diff()
     {
 	BIN="diff"
-	$(which $BIN) "$@" | zaje -l $BIN
+	$(which $BIN --skip-alias --skip-functions) "$@" | zaje -l $BIN
     }
 
     lsb_release()
     {
 	BIN="lsb_release"
 	if command -v "$BIN" > /dev/null 2>&1 ;then
-	    $(which $BIN) "$@" | zaje -l yaml
+	    $(which $BIN --skip-alias --skip-functions) "$@" | zaje -l yaml
 	fi
     }
 
     ping()
     {
 	BIN="ping"
-	$(which $BIN) "$@" | zaje -l $BIN -
+	$(which $BIN --skip-alias --skip-functions) "$@" | zaje -l $BIN -
     }
 
     route()
     {
 	BIN="route"
-	$(which $BIN) "$@" | zaje -l $BIN
+	$(which $BIN --skip-alias --skip-functions) "$@" | zaje -l $BIN
     }
 
     traceroute()
     {
 	BIN="traceroute"
-	$(which $BIN) "$@" | zaje -l $BIN -
+	$(which $BIN --skip-alias --skip-functions) "$@" | zaje -l $BIN -
     }
 
     nmap()
     {
 	BIN="nmap"
-	$(which $BIN) "$@" | zaje -l $BIN -
+	$(which $BIN --skip-alias --skip-functions) "$@" | zaje -l $BIN -
     }
 
     netstat()
     {
 	BIN="netstat"
-	$(which $BIN) "$@" | zaje -l $BIN
+	$(which $BIN --skip-alias --skip-functions) "$@" | zaje -l $BIN
     }
 
     ifconfig()
     {
 	BIN="ifconfig"
-	$(which $BIN) "$@" | zaje -l $BIN
+	$(which $BIN --skip-alias --skip-functions) "$@" | zaje -l $BIN
     }
 
     ip()
     {
 	BIN="ip"
-	$(which $BIN) "$@" | zaje -l $BIN
+	$(which $BIN --skip-alias --skip-functions) "$@" | zaje -l $BIN
     }
 
     ss()
     {
 	BIN="ss"
-	$(which $BIN) "$@" | zaje
+	$(which $BIN --skip-alias --skip-functions) "$@" | zaje
     }
 
     df()
     {
 	BIN="df"
-	$(which $BIN) "$@" | zaje -l $BIN 
+	$(which $BIN --skip-alias --skip-functions) "$@" | zaje -l $BIN 
     }
 
     du()
     {
 	BIN="du"
-	$(which $BIN) "$@" | zaje -l $BIN 
+	$(which $BIN --skip-alias --skip-functions) "$@" | zaje -l $BIN 
     }
 
     xmllint()
     {
 	BIN=xmllint
 	if which $BIN > /dev/null ;then
-	    $(which $BIN) "$@" | zaje -l xml
+	    $(which $BIN --skip-alias --skip-functions) "$@" | zaje -l xml
 	else
 	    echo "$BIN does not exist"
 	fi
@@ -126,7 +126,7 @@ if command -v zaje > /dev/null 2>&1 ; then
     {
 	BIN=jsonlint
 	if which $BIN > /dev/null ;then
-	    $(which $BIN) "$@" | zaje -l json
+	    $(which $BIN --skip-alias --skip-functions) "$@" | zaje -l json
 	else
 	    echo "$BIN does not exist"
 	fi
