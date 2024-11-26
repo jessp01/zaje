@@ -19,7 +19,7 @@ if command -v zaje > /dev/null 2>&1 ; then
 
     # alias cat=zaje
 
-    alias history='history |zaje -d -l history'
+    # alias history='history |zaje -d -l history'
 
     tail()
     {
