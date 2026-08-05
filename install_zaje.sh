@@ -98,7 +98,7 @@ VERSION_NO_V=$(echo "$LATEST_HIGHLIGHT_VER" | sed 's/^v\(.*\)/\1/')
 mv "$HIGHLIGHT_REPO_NAME-$VERSION_NO_V/syntax_files" "$LEXERS_DIR"
 
 # shellcheck disable=SC2059
-printf "All sorted:)\n\n${BLUE}* $NAME${NORMAL} binary is in ~/bin/${NAME}\n"
+printf "All sorted:)\n\n${BLUE}* $NAME${NORMAL} binary is in ~/bin/${NAME}. Make sure to include it in PATH.\n"
 # shellcheck disable=SC2059
 printf "* Useful helper functions are under ${BLUE}$FUNCTIONS_RC_FILE\n${NORMAL}  Source them with ${BLUE}'. $FUNCTIONS_RC_FILE'${NORMAL}.\n"
 # shellcheck disable=SC2059
@@ -106,30 +106,14 @@ printf "* Lexers are under ${BLUE}$LEXERS_DIR${NORMAL}\n\n"
 # shellcheck disable=SC2059
 printf "Downloaded archives are available in ${BLUE}$TMP_DIR${NORMAL}.. Feel free to discard them.${UNSET}\n"
 
-if [ "$(id -u)" = 0 ];then
-    cp ~/bin/${NAME} /usr/local/bin/${NAME}
-# shellcheck disable=SC2059
-    printf "Copied ${BLUE}~/bin/${NAME}${NORMAL} to ${BLUE}/usr/local/bin/${NAME}${NORMAL}\n"
-    # we don't want to override if exists
-    if [ ! -r /etc/profile.d/${NAME}.sh ];then
-	cp "$FUNCTIONS_RC_FILE" /etc/profile.d/${NAME}.sh
-# shellcheck disable=SC2059
-	printf "Copied ${BLUE}$FUNCTIONS_RC_FILE${NORMAL} to ${BLUE}/etc/profile.d/${NAME}.sh${NORMAL}\n"
-    fi
-    if [ ! -d /etc/${NAME}/syntax_files ];then
-	mkdir -p /etc/${NAME}
-	cp -r "$LEXERS_DIR" "/etc/${NAME}"
-# shellcheck disable=SC2059
-	printf "Copied ${BLUE}$LEXERS_DIR${NORMAL} to ${BLUE}/etc/${NAME}${NORMAL}\n"
-    fi
-fi
 
+PATH=$PATH:~/bin
 # shellcheck disable=SC1090
 . "$FUNCTIONS_RC_FILE"
 
 cd -
 # shellcheck disable=SC2059
-printf "\nWe've sourced ${BLUE}$FUNCTIONS_RC_FILE${NORMAL} in this script to check that it is working... sample output:\n\n"
+printf "\nWe've sourced ${BLUE}$FUNCTIONS_RC_FILE${NORMAL} and set 'PATH=\$PATH:~/bin' in this script to check that it is working...\nsample output:\n\n"
 
 # shellcheck disable=SC2059
 printf "${YELLOW}df -h:${NORMAL}\n"
@@ -149,4 +133,24 @@ printf "#include <stdio.h>\nprintf(\"hello world\");\n" | zaje
 
 if log_use_fancy_output ;then
     $TPUT sgr0
+fi
+
+if [ "$(id -u)" = 0 ];then
+    cp ~/bin/${NAME} /usr/local/bin/${NAME}
+# shellcheck disable=SC2059
+    printf "Copied ${BLUE}~/bin/${NAME}${NORMAL} to ${BLUE}/usr/local/bin/${NAME}${NORMAL}\n"
+    # we don't want to override if exists
+    if [ ! -r /etc/profile.d/${NAME}.sh ];then
+	cp "$FUNCTIONS_RC_FILE" /etc/profile.d/${NAME}.sh
+# shellcheck disable=SC2059
+	printf "Copied ${BLUE}$FUNCTIONS_RC_FILE${NORMAL} to ${BLUE}/etc/profile.d/${NAME}.sh${NORMAL}\n"
+    fi
+    if [ ! -d /etc/${NAME}/syntax_files ];then
+	mkdir -p /etc/${NAME}
+	cp -r "$LEXERS_DIR" "/etc/${NAME}"
+# shellcheck disable=SC2059
+	printf "Copied ${BLUE}$LEXERS_DIR${NORMAL} to ${BLUE}/etc/${NAME}${NORMAL}\n"
+    fi
+else
+	printf "Add the below to shell's RC (~/.bashrc, ~/.profile, etc):\n===\n%s. %s\nPATH=\$PATH:~/bin\n%s===\n" "${BLUE}" "${FUNCTIONS_RC_FILE}" "${NORMAL}"
 fi
